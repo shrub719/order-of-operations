@@ -4,16 +4,18 @@
 [ext_resource type="PackedScene" uid="uid://c41mpdxr6w8sm" path="res://src/tile.tscn" id="2_j20h5"]
 
 [node name="TestScene" type="Node2D" unique_id=264772083]
+y_sort_enabled = true
 
 [node name="BackgroundTiles" type="TileMapLayer" parent="." unique_id=1637744787]
 z_index = -10
 tile_map_data = PackedByteArray("AAAFAAIAAQAAAAAAAAAGAAMAAQAAAAAAAAAHAAIAAQAAAAAAAAAFAAQAAQAAAAAAAAAHAAQAAQAAAAAAAAAIAAMAAQAAAAAAAAAJAAIAAQAAAAAAAAAJAAQAAQAAAAAAAAAGAAUAAQAAAAAAAAAIAAUAAQAAAAAAAAAFAAYAAQAAAAAAAAAHAAYAAQAAAAAAAAAJAAYAAQAAAAAAAAAGAAYAAQABAAAAAAAHAAUAAQABAAAAAAAFAAUAAQABAAAAAAAGAAQAAQABAAAAAAAFAAMAAQABAAAAAAAGAAIAAQABAAAAAAAHAAMAAQABAAAAAAAIAAIAAQABAAAAAAAJAAMAAQABAAAAAAAIAAQAAQABAAAAAAAJAAUAAQABAAAAAAAIAAYAAQABAAAAAAA=")
 tile_set = ExtResource("1_j20h5")
 
-[node name="AllTiles" type="Node" parent="." unique_id=1519918084]
-
-[node name="Tile" parent="AllTiles" unique_id=214883983 instance=ExtResource("2_j20h5")]
-position = Vector2(104, 72)
+[node name="AllTiles" type="Node2D" parent="." unique_id=976756424]
+y_sort_enabled = true
 
 [node name="Tile2" parent="AllTiles" unique_id=451024642 instance=ExtResource("2_j20h5")]
-position = Vector2(120, 72)
+position = Vector2(104, 56)
+
+[node name="Tile" parent="AllTiles" unique_id=214883983 instance=ExtResource("2_j20h5")]
+position = Vector2(120, 104)

@@ -8,7 +8,7 @@
 position = Vector2(0, -4)
 texture = ExtResource("1_unf0c")
 hframes = 16
-frame = 1
+frame = 15
 
 [node name="Outline" type="Node2D" parent="." unique_id=1824634894]
 modulate = Color(0.078431375, 0.09411765, 0.18039216, 1)
@@ -28,6 +28,7 @@ offset_right = 8.0
 offset_bottom = 13.0
 
 [node name="Shadow" type="ColorRect" parent="." unique_id=1815898994]
+visible = false
 z_index = -6
 offset_left = -11.0
 offset_top = -11.0
