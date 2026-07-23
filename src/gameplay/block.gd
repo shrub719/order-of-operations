@@ -3,14 +3,14 @@ extends Node2D
 
 var locked := false
 var to_be_destroyed := false
-var next_state := 0
+var next_type := 0
 
 func update_visuals():
-	# TODO: if next_state is -1 then do a cool animation
-	$Sprite2D.frame = next_state
-	$LockedIndicator.visible = locked and $Sprite2D.frame >= 10
+	# TODO: if next_type is -1 then do a cool animation
+	$Sprite2D.frame = next_type
+	$LockedIndicator.visible = locked and is_operator()
 
-	if next_state != 0:
+	if next_type != 0:
 		$Outline.modulate = Color("14182e")
 	else:
 		$Outline.modulate = Color("92e8c0")
