@@ -10,6 +10,7 @@ func update_visuals():
 	$Sprite2D.frame = next_type
 	$LockedIndicator.visible = locked and is_operator()
 
+	# maybe only have it glow if it's the last block? otherwise the outline looks weird
 	if next_type != 0:
 		$Outline.modulate = Color("14182e")
 	else:

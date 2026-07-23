@@ -7,35 +7,35 @@ var block_pointers := []
 var block_scene: PackedScene = preload('res://src/gameplay/block.tscn')
 var block_creation_queue = []
 
-var debug_layout_0 = [
-	[2, 1, Operators.SUBTRACTION, false],
-	[2, 2, Operators.MULTIPLICATION, true]
-]
+func str_to_type(str: String):
+	match str:
+		"equ": return 10
+		"add": return 11
+		"mul": return 12
+		"sub": return 13
+		"move": return 14
+		"swap": return 15
+		_: return int(str)
 
-func load_layout(layout):
-	for block in layout:
-		make_block_at(Vector2(block[0], block[1]), block[2], block[3])
+func load_level(id: String):
+	var file = FileAccess.open("res://src/gameplay/levels/" + id, FileAccess.READ)
+	var text = file.get_as_text()
 
-func debug_layout_1():
-	make_block_at(Vector2(2,1), Operators.SUBTRACTION, false)
-	make_block_at(Vector2(2,2), Operators.MULTIPLICATION, true)
+	var content = []
+	for section in text.split("\n\n"):
+		var current_section = []
+		for line in section.split("\n"):
+			current_section.append(line.split(" "))	
+		content.append(current_section)
 
-	make_block_at(Vector2(3,2), Operators.MULTIPLICATION, false)
+	# board blocks
+	for block in content[0]:
+		var type = str_to_type(block[2])
+		var locked = len(block) > 3 and block[3] != "0"
+		make_block_at(Vector2(int(block[0]), int(block[1])), type, locked)
 
-	make_block_at(Vector2(3,3), 6, false)
-	make_block_at(Vector2(1,1), 7, false)
-	make_block_at(Vector2(3,1), 2, false)
-
-func debug_layout_2():
-	make_block_at(Vector2(2,1), Operators.EQUALITY, false)
-	make_block_at(Vector2(2,2), Operators.SUBTRACTION, true)
-	make_block_at(Vector2(2,3), Operators.EQUALITY, false)
-
-	make_block_at(Vector2(3,2), Operators.MULTIPLICATION, false)
-	make_block_at(Vector2(1,2), Operators.MULTIPLICATION, false)
-
-	make_block_at(Vector2(3,3), 2, false)
-	make_block_at(Vector2(1,1), 3, false)
+	# placeable blocks
+	# todo
 
 func _ready() -> void:
 	# initialise pointer array
@@ -45,7 +45,7 @@ func _ready() -> void:
 			row.append(null)
 		block_pointers.append(row)
 	
-	debug_layout_2()
+	load_level("dev1")
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_accept"):

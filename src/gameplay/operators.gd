@@ -5,7 +5,7 @@ const EQUALITY := 10
 const ADDITION := 11
 const MULTIPLICATION := 12
 const SUBTRACTION := 13
-const LTR_MOVEMENT := 14
+const MOVEMENT := 14
 const SWAPIFICATION := 15
 
 func get_numerical_neighbours(left, right, up, down):
