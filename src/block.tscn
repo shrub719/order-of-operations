@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://daqudaia8nqt0" path="res://assets/placeable_tiles.png" id="1_unf0c"]
 [ext_resource type="Texture2D" uid="uid://cskw53jwsddd0" path="res://assets/locked_indicator.png" id="2_xam7p"]
 
-[node name="Tile" type="Node2D" unique_id=214883983]
+[node name="Block" type="Node2D" unique_id=214883983]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=577979893]
 position = Vector2(0, -2)
