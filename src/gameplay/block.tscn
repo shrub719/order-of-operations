@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://c41mpdxr6w8sm"]
 
+[ext_resource type="Script" uid="uid://da646ewshy4p6" path="res://src/gameplay/block.gd" id="1_5j04u"]
 [ext_resource type="Texture2D" uid="uid://daqudaia8nqt0" path="res://assets/placeable_tiles.png" id="1_unf0c"]
 [ext_resource type="Texture2D" uid="uid://cskw53jwsddd0" path="res://assets/locked_indicator.png" id="2_xam7p"]
 [ext_resource type="Texture2D" uid="uid://bomlaqlguu3ge" path="res://assets/locked_indicator_front.png" id="3_tdspo"]
@@ -8,31 +9,35 @@
 blend_mode = 3
 
 [node name="Tile" type="Node2D" unique_id=214883983]
+script = ExtResource("1_5j04u")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=577979893]
-position = Vector2(0, -2)
+position = Vector2(8, 6)
 texture = ExtResource("1_unf0c")
 hframes = 16
-frame = 12
 
 [node name="Outline" type="Node2D" parent="." unique_id=1824634894]
-modulate = Color(0.078431375, 0.09411765, 0.18039216, 1)
+modulate = Color(0.57254905, 0.9098039, 0.7529412, 1)
 z_index = -5
-position = Vector2(0, -4)
+position = Vector2(8, 4)
 
 [node name="ColorRect" type="ColorRect" parent="Outline" unique_id=2061029307]
 offset_left = -9.0
 offset_top = -10.0
 offset_right = 9.0
 offset_bottom = 12.0
+metadata/_edit_use_anchors_ = true
 
 [node name="ColorRect2" type="ColorRect" parent="Outline" unique_id=1788083547]
 offset_left = -8.0
 offset_top = -11.0
 offset_right = 8.0
 offset_bottom = 13.0
+metadata/_edit_use_anchors_ = true
 
 [node name="LockedIndicator" type="Node2D" parent="." unique_id=1223852490]
+visible = false
+position = Vector2(8, 8)
 
 [node name="Shadow" type="ColorRect" parent="LockedIndicator" unique_id=1815898994]
 material = SubResource("CanvasItemMaterial_xam7p")
