@@ -49,21 +49,20 @@ func subtract(slf, left, right):
 	right.destroy()
 	slf.next_type = difference
 
-func eq(slf, left, right, make_block_at):
+func eq(slf, left, right, queue_block_at):
 	if left != null and right != null: return
 	if left == null and right == null: return
 	if (left != null and left.is_operator()) or (right != null and right.is_operator()): return
-
 	var next_type = left.get_type() if left != null else right.get_type()
 	
 	if left == null:
-		make_block_at.call(slf.get_grid_position() - Vector2(1, 0), next_type, false)
+		queue_block_at.call(slf.get_grid_position() - Vector2(1, 0), next_type)
 	elif right == null:
-		make_block_at.call(slf.get_grid_position() + Vector2(1, 0), next_type, false)
+		queue_block_at.call(slf.get_grid_position() + Vector2(1, 0), next_type)
 	
 	slf.destroy()
 
-func move(slf, left, right, make_block_at):
+func move(slf, left, right, queue_block_at):
 	if left != null and right != null: return
 	if left == null and right == null: return
 	if (left != null and left.is_operator()) or (right != null and right.is_operator()): return
@@ -71,10 +70,10 @@ func move(slf, left, right, make_block_at):
 	var next_type = left.get_type() if left != null else right.get_type()
 	
 	if left == null:
-		make_block_at.call(slf.get_grid_position() - Vector2(1, 0), next_type, false)
+		queue_block_at.call(slf.get_grid_position() - Vector2(1, 0), next_type)
 		right.destroy()
 	elif right == null:
-		make_block_at.call(slf.get_grid_position() + Vector2(1, 0), next_type, false)
+		queue_block_at.call(slf.get_grid_position() + Vector2(1, 0), next_type)
 		left.destroy()
 	
 	slf.destroy()

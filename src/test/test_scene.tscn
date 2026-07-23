@@ -18,8 +18,15 @@ z_index = -10
 tile_map_data = PackedByteArray("AAAAAAAAAQAAAAAAAAABAAEAAQAAAAAAAAACAAAAAQAAAAAAAAADAAEAAQAAAAAAAAAEAAAAAQAAAAAAAAAEAAIAAQAAAAAAAAACAAIAAQAAAAAAAAAAAAIAAQAAAAAAAAABAAMAAQAAAAAAAAADAAMAAQAAAAAAAAAAAAQAAQAAAAAAAAACAAQAAQAAAAAAAAAEAAQAAQAAAAAAAAABAAQAAQABAAAAAAACAAMAAQABAAAAAAAAAAMAAQABAAAAAAABAAIAAQABAAAAAAAAAAEAAQABAAAAAAABAAAAAQABAAAAAAACAAEAAQABAAAAAAADAAAAAQABAAAAAAAEAAEAAQABAAAAAAADAAIAAQABAAAAAAAEAAMAAQABAAAAAAADAAQAAQABAAAAAAA=")
 tile_set = ExtResource("1_j20h5")
 
+[node name="Drawer" type="Sprite2D" parent="Board" unique_id=425829429]
+position = Vector2(179, 47)
+texture = ExtResource("3_4bsf5")
+
 [node name="Blocks" type="Node2D" parent="Board" unique_id=976756424]
 y_sort_enabled = true
+
+[node name="DrawerBlocks" type="Node2D" parent="Board" unique_id=139004882]
+position = Vector2(163, 7)
 
 [node name="GUI" type="CanvasLayer" parent="." unique_id=2132230288]
 
@@ -50,7 +57,3 @@ centered = false
 hframes = 5
 vframes = 2
 frame = 2
-
-[node name="Drawer" type="Sprite2D" parent="GUI" unique_id=425829429]
-position = Vector2(283, 87)
-texture = ExtResource("3_4bsf5")
