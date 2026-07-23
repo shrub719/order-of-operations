@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://dujtrmsnowv67"]
 
 [ext_resource type="TileSet" uid="uid://dowumvqgiy5r7" path="res://assets/background_tileset.tres" id="1_j20h5"]
-[ext_resource type="PackedScene" uid="uid://c41mpdxr6w8sm" path="res://src/block.tscn" id="2_j20h5"]
+[ext_resource type="PackedScene" uid="uid://c41mpdxr6w8sm" path="res://src/gameplay/block.tscn" id="2_j20h5"]
 [ext_resource type="Texture2D" uid="uid://x0hknn6esda2" path="res://assets/drawer.png" id="3_4bsf5"]
 [ext_resource type="Texture2D" uid="uid://dpaprtq0ryble" path="res://assets/playback_controls.png" id="3_of155"]
 [ext_resource type="Texture2D" uid="uid://26lhl415w8bx" path="res://assets/playback_buttons.png" id="4_03kt7"]
@@ -9,24 +9,25 @@
 [node name="TestScene" type="Node2D" unique_id=264772083]
 y_sort_enabled = true
 
-[node name="BackgroundTiles" type="TileMapLayer" parent="." unique_id=1637744787]
+[node name="Board" type="Node2D" parent="." unique_id=1854775700]
+position = Vector2(104, 40)
+
+[node name="BackgroundTiles" type="TileMapLayer" parent="Board" unique_id=1637744787]
 z_index = -10
-position = Vector2(26, 8)
-tile_map_data = PackedByteArray("AAAFAAIAAQAAAAAAAAAGAAMAAQAAAAAAAAAHAAIAAQAAAAAAAAAFAAQAAQAAAAAAAAAHAAQAAQAAAAAAAAAIAAMAAQAAAAAAAAAJAAIAAQAAAAAAAAAJAAQAAQAAAAAAAAAGAAUAAQAAAAAAAAAIAAUAAQAAAAAAAAAFAAYAAQAAAAAAAAAHAAYAAQAAAAAAAAAJAAYAAQAAAAAAAAAGAAYAAQABAAAAAAAHAAUAAQABAAAAAAAFAAUAAQABAAAAAAAGAAQAAQABAAAAAAAFAAMAAQABAAAAAAAGAAIAAQABAAAAAAAHAAMAAQABAAAAAAAIAAIAAQABAAAAAAAJAAMAAQABAAAAAAAIAAQAAQABAAAAAAAJAAUAAQABAAAAAAAIAAYAAQABAAAAAAA=")
+tile_map_data = PackedByteArray("AAAAAAAAAQAAAAAAAAABAAEAAQAAAAAAAAACAAAAAQAAAAAAAAADAAEAAQAAAAAAAAAEAAAAAQAAAAAAAAAEAAIAAQAAAAAAAAACAAIAAQAAAAAAAAAAAAIAAQAAAAAAAAABAAMAAQAAAAAAAAADAAMAAQAAAAAAAAAAAAQAAQAAAAAAAAACAAQAAQAAAAAAAAAEAAQAAQAAAAAAAAABAAQAAQABAAAAAAACAAMAAQABAAAAAAAAAAMAAQABAAAAAAABAAIAAQABAAAAAAAAAAEAAQABAAAAAAABAAAAAQABAAAAAAACAAEAAQABAAAAAAADAAAAAQABAAAAAAAEAAEAAQABAAAAAAADAAIAAQABAAAAAAAEAAMAAQABAAAAAAADAAQAAQABAAAAAAA=")
 tile_set = ExtResource("1_j20h5")
 
-[node name="AllBlocks" type="Node2D" parent="." unique_id=976756424]
+[node name="Blocks" type="Node2D" parent="Board" unique_id=976756424]
 y_sort_enabled = true
-position = Vector2(34, 8)
 
-[node name="Block2" parent="AllBlocks" unique_id=451024642 instance=ExtResource("2_j20h5")]
-position = Vector2(96, 72)
+[node name="Block2" parent="Board/Blocks" unique_id=451024642 instance=ExtResource("2_j20h5")]
+position = Vector2(40, 40)
 
-[node name="Block3" parent="AllBlocks" unique_id=214883983 instance=ExtResource("2_j20h5")]
-position = Vector2(112, 72)
+[node name="Block3" parent="Board/Blocks" unique_id=214883983 instance=ExtResource("2_j20h5")]
+position = Vector2(56, 40)
 
-[node name="Block" parent="AllBlocks" unique_id=187992860 instance=ExtResource("2_j20h5")]
-position = Vector2(112, 88)
+[node name="Block" parent="Board/Blocks" unique_id=187992860 instance=ExtResource("2_j20h5")]
+position = Vector2(56, 56)
 
 [node name="GUI" type="CanvasLayer" parent="." unique_id=2132230288]
 
