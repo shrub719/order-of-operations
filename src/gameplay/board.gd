@@ -56,7 +56,7 @@ func _ready() -> void:
 			row.append(null)
 		drawer_block_pointers.append(row)
 	
-	load_level("dev2")
+	load_level("test1")
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_accept"):
