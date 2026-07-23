@@ -3,19 +3,35 @@
 [ext_resource type="TileSet" uid="uid://dowumvqgiy5r7" path="res://assets/background_tileset.tres" id="1_j20h5"]
 [ext_resource type="PackedScene" uid="uid://c41mpdxr6w8sm" path="res://src/tile.tscn" id="2_j20h5"]
 
+[sub_resource type="Animation" id="Animation_j20h5"]
+resource_name = "reset"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4bsf5"]
+_data = {
+&"reset": SubResource("Animation_j20h5")
+}
+
 [node name="TestScene" type="Node2D" unique_id=264772083]
 y_sort_enabled = true
 
 [node name="BackgroundTiles" type="TileMapLayer" parent="." unique_id=1637744787]
 z_index = -10
+position = Vector2(40, 8)
 tile_map_data = PackedByteArray("AAAFAAIAAQAAAAAAAAAGAAMAAQAAAAAAAAAHAAIAAQAAAAAAAAAFAAQAAQAAAAAAAAAHAAQAAQAAAAAAAAAIAAMAAQAAAAAAAAAJAAIAAQAAAAAAAAAJAAQAAQAAAAAAAAAGAAUAAQAAAAAAAAAIAAUAAQAAAAAAAAAFAAYAAQAAAAAAAAAHAAYAAQAAAAAAAAAJAAYAAQAAAAAAAAAGAAYAAQABAAAAAAAHAAUAAQABAAAAAAAFAAUAAQABAAAAAAAGAAQAAQABAAAAAAAFAAMAAQABAAAAAAAGAAIAAQABAAAAAAAHAAMAAQABAAAAAAAIAAIAAQABAAAAAAAJAAMAAQABAAAAAAAIAAQAAQABAAAAAAAJAAUAAQABAAAAAAAIAAYAAQABAAAAAAA=")
 tile_set = ExtResource("1_j20h5")
 
 [node name="AllTiles" type="Node2D" parent="." unique_id=976756424]
 y_sort_enabled = true
+position = Vector2(40, 8)
 
 [node name="Tile2" parent="AllTiles" unique_id=451024642 instance=ExtResource("2_j20h5")]
-position = Vector2(104, 56)
+position = Vector2(104, 72)
 
-[node name="Tile" parent="AllTiles" unique_id=214883983 instance=ExtResource("2_j20h5")]
-position = Vector2(120, 104)
+[node name="Tile3" parent="AllTiles" unique_id=214883983 instance=ExtResource("2_j20h5")]
+position = Vector2(120, 72)
+
+[node name="Tile" parent="AllTiles" unique_id=187992860 instance=ExtResource("2_j20h5")]
+position = Vector2(136, 72)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=564257030]
+libraries/ = SubResource("AnimationLibrary_4bsf5")
