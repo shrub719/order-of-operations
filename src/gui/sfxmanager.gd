@@ -10,10 +10,12 @@ const OPERATION_2 = preload("res://assets/sfx/operationFast.wav")
 
 func interact(locked):
 	stream = INTERACT_LOCKED if locked else INTERACT
+	pitch_scale = randf_range(0.8, 1.2)
 	play()
 	
 func place():
 	stream = PLACE
+	pitch_scale = randf_range(0.8, 1.2)
 	play()
 
 func operation():
