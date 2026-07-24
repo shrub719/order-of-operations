@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://26lhl415w8bx" path="res://assets/playback_buttons.png" id="8_xc72w"]
 [ext_resource type="Script" uid="uid://b4exisj1wvi5o" path="res://src/gui/playback_button.gd" id="9_exy5e"]
 [ext_resource type="Texture2D" uid="uid://ddegng1v7w2o5" path="res://assets/playing_overlay.png" id="10_3udor"]
+[ext_resource type="FontFile" uid="uid://lvfpwe0bo7uj" path="res://assets/font/alagard.ttf" id="11_tud4r"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_mjyh8"]
 blend_mode = 3
@@ -112,3 +113,28 @@ color = Color(1, 1, 1, 0)
 visible = false
 position = Vector2(160, 90)
 texture = ExtResource("10_3udor")
+
+[node name="Title" type="Control" parent="GUI" unique_id=1630862251]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleText" type="RichTextLabel" parent="GUI/Title" unique_id=2081775711]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -82.5
+offset_right = 82.5
+offset_bottom = 40.0
+grow_horizontal = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, 12)
+theme_override_fonts/normal_font = ExtResource("11_tud4r")
+bbcode_enabled = true
+text = "[wave amp=10.0 freq=2.5 connected=1]6. Less Elementary[/wave]"
+scroll_active = false
+horizontal_alignment = 1

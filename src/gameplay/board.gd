@@ -41,8 +41,8 @@ func load_level(id: String):
 		for y in range(board_height):
 			$BackgroundTiles.set_cell(Vector2i(x, y))
 
-	board_width = int(content[0][0][0])
-	board_height = int(content[0][0][1])
+	board_width = int(content[1][0][0])
+	board_height = int(content[1][0][1])
 
 	for x in range(board_width):
 		for y in range(board_height):
@@ -76,12 +76,12 @@ func load_level(id: String):
 		drawer_block_pointers.append(row)
 
 	# board blocks
-	for block in content[1]:
+	for block in content[2]:
 		var type = str_to_type(block[2])
 		make_block_at(Vector2(int(block[0]), int(block[1])), type, true)
 
 	# drawer blocks
-	for block in content[2]:
+	for block in content[3]:
 		var type = str_to_type(block[2])
 		make_block_at(Vector2(int(block[0]), int(block[1])), type, false)
 	
@@ -97,7 +97,7 @@ func _ready() -> void:
 
 func reset():
 	SFX.board_entry()
-	load_level(Settings.level)
+	load_level(Settings.level())
 
 func cache_board():
 	# store information about every tile on the board
