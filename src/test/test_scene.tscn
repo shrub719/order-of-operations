@@ -32,6 +32,9 @@ y_sort_enabled = true
 y_sort_enabled = true
 position = Vector2(163, 7)
 
+[node name="SimulatedBlocks" type="Node2D" parent="Board" unique_id=304954885]
+position = Vector2(-104, -40)
+
 [node name="GUI" type="CanvasLayer" parent="." unique_id=2132230288]
 
 [node name="PlaybackControls" type="Sprite2D" parent="GUI" unique_id=1292278766 node_paths=PackedStringArray("board")]

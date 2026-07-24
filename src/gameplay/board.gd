@@ -6,6 +6,7 @@ extends Node2D
 const DRAWER_WIDTH := 3
 const DRAWER_HEIGHT := 5
 var block_pointers := []
+var block_cache := []
 var drawer_block_pointers := []
 
 var block_scene: PackedScene = preload('res://src/gameplay/block.tscn')
@@ -47,9 +48,12 @@ func _ready() -> void:
 	# initialise pointer array
 	for i in range(board_width):
 		var row = []
+		var cache_row = []
 		for j in range(board_height):
 			row.append(null)
+			cache_row.append(null)
 		block_pointers.append(row)
+		block_cache.append(cache_row)
 
 	for i in range(DRAWER_WIDTH):
 		var row = []
@@ -58,6 +62,43 @@ func _ready() -> void:
 		drawer_block_pointers.append(row)
 	
 	load_level("tutorial")
+	update_all_hitboxes()
+
+func cache_board():
+	# store information about every tile on the board
+	for x in range(board_width):
+		for y in range(board_height):
+			# reset block cache
+			block_cache[x][y] = null
+			# and assign a value if theres a block present
+			var block = block_pointers[x][y]
+			if block == null: continue
+			block_cache[x][y] = block.encode()
+
+func load_cache():
+	# clear all tiles
+	for child in $Blocks.get_children():
+		child.queue_free()
+	
+	for x in range(board_width):
+		for y in range(board_height):
+			# reset the pointer
+			block_pointers[x][y] = null 
+
+			var block_data = block_cache[x][y]
+			if block_data == null: continue
+			# cached block here
+			var block: Block = block_scene.instantiate()
+			block.position = Vector2(x, y) * 16
+			block.old_position = block.position
+			block.next_type = block_data.type
+			block.locked = block_data.is_locked
+			block.on_board = true
+			block.update_visuals()
+
+			$Blocks.add_child(block)
+			block_pointers[x][y] = block
+	
 	update_all_hitboxes()
 
 func make_block_at(pos, type, on_board):

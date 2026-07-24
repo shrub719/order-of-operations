@@ -38,6 +38,11 @@ func update_playback_mode(value):
 	if is_in_playback_mode:
 		# update buttons
 		resetstop_button.frame_coords.x = 4
+		# cache board state
+		board.cache_board()
 	else:
+		# update buttons
 		playpause_button.frame_coords.x = 0
 		resetstop_button.frame_coords.x = 3
+		# load cached board state
+		board.load_cache()

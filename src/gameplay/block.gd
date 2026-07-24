@@ -60,3 +60,14 @@ func _process(delta):
 	if drag:
 		var mouse = get_viewport().get_mouse_position()
 		self.global_position = Vector2(mouse.x, mouse.y) - Vector2(8, 4)
+
+func encode():
+	var data := BlockData.new()
+	data.is_locked = locked
+	data.type = $Sprite2D.frame
+	return data
+
+class BlockData:
+	# enough information to recreate a block 
+	var is_locked := false
+	var type := 0
