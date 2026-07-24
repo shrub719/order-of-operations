@@ -16,12 +16,12 @@ func _ready():
 		add_child(player)
 
 func play(stream, pitch_scale = 1.0):
-    for player in get_children():
-        if !player.playing:
-            player.stream = stream
-            player.pitch_scale = pitch_scale
-            player.play()
-            return
+	for player in get_children():
+		if !player.playing:
+			player.stream = stream
+			player.pitch_scale = pitch_scale
+			player.play()
+			return
 
 func interact(locked):
 	var stream = INTERACT_LOCKED if locked else INTERACT
@@ -39,4 +39,3 @@ func click(button):
 	var stream = CLICK
 	var pitch_scale = 1 - 0.05 * button
 	play(stream, pitch_scale)
-
