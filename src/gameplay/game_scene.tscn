@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://dujtrmsnowv67"]
 
 [ext_resource type="Texture2D" uid="uid://dh3xrnal1xmtw" path="res://assets/vignette.png" id="1_co3sc"]
+[ext_resource type="Script" uid="uid://05qk4vli5kv0" path="res://src/gameplay/game_scene.gd" id="1_sgi0b"]
 [ext_resource type="Script" uid="uid://c1t3bbxufirwj" path="res://src/gameplay/board.gd" id="2_tud4r"]
 [ext_resource type="TileSet" uid="uid://dowumvqgiy5r7" path="res://assets/background_tileset.tres" id="3_sgi0b"]
 [ext_resource type="Texture2D" uid="uid://x0hknn6esda2" path="res://assets/drawer.png" id="4_g2hfw"]
@@ -17,6 +18,7 @@ blend_mode = 3
 
 [node name="GameScene" type="Node2D" unique_id=264772083]
 y_sort_enabled = true
+script = ExtResource("1_sgi0b")
 
 [node name="Vignette" type="Sprite2D" parent="." unique_id=1619732659]
 z_index = -14
@@ -132,7 +134,7 @@ offset_right = 82.5
 offset_bottom = 40.0
 grow_horizontal = 2
 offset_transform_enabled = true
-offset_transform_position = Vector2(0, 12)
+offset_transform_position = Vector2(-20, 12)
 theme_override_fonts/normal_font = ExtResource("11_tud4r")
 bbcode_enabled = true
 text = "[wave amp=10.0 freq=2.5 connected=1]6. Less Elementary[/wave]"
