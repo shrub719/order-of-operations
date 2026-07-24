@@ -82,6 +82,11 @@ func queue_block_at(pos, type):
 func get_block_at(pos):
 	return block_pointers[int(pos.x)][int(pos.y)]
 
+func snap_block(block):
+	# round to nearrest coord
+	# if close enough (and empty), then remove old reference and add new one
+	pass
+
 func advance_stage():
 	# apparently a prerelease reference
 	# process operators

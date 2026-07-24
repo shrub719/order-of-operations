@@ -30,3 +30,24 @@ func destroy():
 
 func get_grid_position():
 	return position / 16
+
+var drag := false
+
+func is_mouse_over():
+	var mouse = get_local_mouse_position()
+	var bounds = Rect2(Vector2(0, -8), Vector2(16, 24))
+	return bounds.has_point(mouse)
+
+func _input(event: InputEvent) -> void:
+	if is_mouse_over() and not locked and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.is_pressed():
+			drag = true
+		elif event.is_released():
+			drag = false
+			# fuck signals man
+			get_parent().get_parent().snap_block(self)
+
+func _process(delta):
+	if drag:
+		var mouse = get_viewport().get_mouse_position()
+		self.global_position = Vector2(mouse.x, mouse.y) - Vector2(8, 4)
