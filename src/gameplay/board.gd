@@ -286,6 +286,16 @@ func advance_stage():
 
 			did_any_operations = try_process_block(block, left, right, up, down) or did_any_operations
 
+	# flush changes
+	for x in range(board_width):
+		for y in range(board_height):
+			var block = block_pointers[x][y]
+			if block == null: continue
+			
+			if block.to_be_destroyed:
+				block.queue_free()
+				block_pointers[x][y] = null
+	
 	# create blocks
 	if len(block_creation_queue) > 0:
 		create_blocks()
@@ -296,12 +306,7 @@ func advance_stage():
 		for y in range(board_height):
 			var block = block_pointers[x][y]
 			if block == null: continue
-			
-			if block.to_be_destroyed:
-				block.queue_free()
-				block_pointers[x][y] = null
-			else:
-				block.update_visuals()
+			block.update_visuals()
 	
 	update_all_hitboxes()
 

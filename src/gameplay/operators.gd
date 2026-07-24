@@ -82,10 +82,12 @@ func swap(slf, left, right, queue_block_at):
 		queue_block_at.call(slf.get_grid_position() + Vector2(1, 0), next_type)
 		left.destroy()
 	else:
-		left.next_type = right.get_type()
-		right.next_type = left.get_type()
-		left.shine()
-		right.shine()
+		var left_type = left.get_type()
+		var right_type = right.get_type()
+		left.destroy()
+		right.destroy()
+		queue_block_at.call(slf.get_grid_position() - Vector2(1, 0), right_type)
+		queue_block_at.call(slf.get_grid_position() + Vector2(1, 0), left_type)
 
 	slf.destroy()
 	return true
