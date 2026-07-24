@@ -72,15 +72,16 @@ func load_level(id: String):
 	for block in content[2]:
 		var type = str_to_type(block[2])
 		make_block_at(Vector2(int(block[0]), int(block[1])), type, false)
-
-func _ready() -> void:
-	load_level("test2")
+	
 	update_all_hitboxes()
 
 	# move board to be centred
 	position = Vector2(140, get_viewport_rect().size.y / 2) - Vector2(8 * board_width, 8 * board_height)
 	# fix drawer blocks position
 	$DrawerBlocks.position = to_local(drawer.global_position)
+
+func _ready() -> void:
+	load_level("test2")
 
 func cache_board():
 	# store information about every tile on the board
