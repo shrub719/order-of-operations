@@ -5,7 +5,6 @@ const EQUALITY := 10
 const ADDITION := 11
 const MULTIPLICATION := 12
 const SUBTRACTION := 13
-const MOVEMENT := 14
 const SWAPIFICATION := 15
 
 func get_numerical_neighbours(left, right, up, down):
@@ -66,28 +65,24 @@ func eq(slf, left, right, queue_block_at):
 	slf.destroy()
 	return true
 
-func move(slf, left, right, queue_block_at):
-	if left != null and right != null: return false
+func swap(slf, left, right, queue_block_at):
+	if left != null and left.is_operator(): return false
+	if right != null and right.is_operator(): return false
 	if left == null and right == null: return false
-	if (left != null and left.is_operator()) or (right != null and right.is_operator()): return false
 
-	var next_type = left.get_type() if left != null else right.get_type()
-	
 	if left == null:
+		var next_type = right.get_type()
 		queue_block_at.call(slf.get_grid_position() - Vector2(1, 0), next_type)
 		right.destroy()
 	elif right == null:
+		var next_type = left.get_type()
 		queue_block_at.call(slf.get_grid_position() + Vector2(1, 0), next_type)
 		left.destroy()
+	else:
+		left.next_type = right.get_type()
+		right.next_type = left.get_type()
+
+	slf.destroy()
+	return true
+
 	
-	slf.destroy()
-	return true
-
-func swap(slf, left, right):
-	if left == null or left.is_operator(): return false
-	if right == null or right.is_operator(): return false
-
-	left.next_type = right.get_type()
-	right.next_type = left.get_type()
-	slf.destroy()
-	return true

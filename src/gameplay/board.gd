@@ -19,7 +19,6 @@ func str_to_type(st: String):
 		"add": return 11
 		"mul": return 12
 		"sub": return 13
-		"move": return 14
 		"swap": return 15
 		_: return int(st)
 
@@ -62,7 +61,7 @@ func _ready() -> void:
 			row.append(null)
 		drawer_block_pointers.append(row)
 	
-	load_level("test2")
+	load_level("swaptest")
 	update_all_hitboxes()
 
 func cache_board():
@@ -184,9 +183,8 @@ func try_process_block(block, left, right, up, down):
 		Operators.ADDITION:       return Operators.add(block, left, right, up, down)
 		Operators.MULTIPLICATION: return Operators.multiply(block, left, right, up, down)
 		Operators.SUBTRACTION:    return Operators.subtract(block, left, right)
-		Operators.MOVEMENT:       return Operators.move(block, left, right, queue_block_at)
-		Operators.SWAPIFICATION:  return Operators.swap(block, left, right)
-	      
+		Operators.SWAPIFICATION:  return Operators.swap(block, left, right, queue_block_at)
+		  
 	return false
 
 func advance_stage():
@@ -255,4 +253,3 @@ func update_all_hitboxes():
 				continue
 			
 			block.is_front_obscured = drawer_block_pointers[x][y + 1] != null
-
