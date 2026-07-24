@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Operators="*uid://dtdld7uhukg76"
+Settings="*uid://c5gfihmt1kacb"
 
 [display]
 

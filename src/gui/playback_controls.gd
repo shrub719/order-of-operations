@@ -40,9 +40,11 @@ func update_playback_mode(value):
 		resetstop_button.frame_coords.x = 4
 		# cache board state
 		board.cache_board()
+		Settings.can_drag_blocks = false
 	else:
 		# update buttons
 		playpause_button.frame_coords.x = 0
 		resetstop_button.frame_coords.x = 3
 		# load cached board state
 		board.load_cache()
+		Settings.can_drag_blocks = true

@@ -46,7 +46,7 @@ func is_mouse_over():
 
 func _input(event: InputEvent) -> void:
 	if is_mouse_over() and not locked and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if event.is_pressed():
+		if event.is_pressed() and Settings.can_drag_blocks:
 			drag = true
 			old_position = position
 			z_index = 10
@@ -57,7 +57,7 @@ func _input(event: InputEvent) -> void:
 			z_index = 0
 
 func _process(delta):
-	if drag:
+	if drag and Settings.can_drag_blocks:
 		var mouse = get_viewport().get_mouse_position()
 		self.global_position = Vector2(mouse.x, mouse.y) - Vector2(8, 4)
 
