@@ -1,5 +1,6 @@
 class_name Block
 extends Node2D
+@onready var SFX: SFXManager = $"/root/Sfxmanager"
 
 var locked := false
 var on_board := false
@@ -45,18 +46,25 @@ func is_mouse_over():
 	return bounds.has_point(mouse)
 
 func _input(event: InputEvent) -> void:
-	if is_mouse_over() and not locked and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if event.is_pressed() and Settings.can_drag_blocks:
-			drag = true
-			old_position = position
-			z_index = 10
-		elif event.is_released() and drag:
-			drag = false
-			# fuck signals man
-			get_parent().get_parent().snap_block(self)
-			z_index = 0
+	if event is not InputEventMouseButton or event.button_index != MOUSE_BUTTON_LEFT:
+		return
+	if not is_mouse_over(): 
+		return
 
-func _process(delta):
+	if event.is_pressed() and Settings.can_drag_blocks and not locked:
+		drag = true
+		old_position = position
+		z_index = 10
+		SFX.interact(false)
+	elif event.is_pressed():
+		SFX.interact(true)
+	elif event.is_released() and drag:
+		drag = false
+		# fuck signals man
+		get_parent().get_parent().snap_block(self)
+		z_index = 0
+
+func _process(_delta):
 	if drag and Settings.can_drag_blocks:
 		var mouse = get_viewport().get_mouse_position()
 		self.global_position = Vector2(mouse.x, mouse.y) - Vector2(8, 4)

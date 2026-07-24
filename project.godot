@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 
 Operators="*uid://dtdld7uhukg76"
 Settings="*uid://c5gfihmt1kacb"
+Sfxmanager="*uid://d0i5m55115u12"
 
 [display]
 

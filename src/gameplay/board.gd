@@ -1,5 +1,6 @@
 class_name Board
 extends Node2D
+@onready var SFX: SFXManager = $"/root/Sfxmanager"
 
 @export var board_width := 5
 @export var board_height := 5
@@ -12,15 +13,15 @@ var drawer_block_pointers := []
 var block_scene: PackedScene = preload('res://src/gameplay/block.tscn')
 var block_creation_queue = []
 
-func str_to_type(str: String):
-	match str:
+func str_to_type(st: String):
+	match st:
 		"equ": return 10
 		"add": return 11
 		"mul": return 12
 		"sub": return 13
 		"move": return 14
 		"swap": return 15
-		_: return int(str)
+		_: return int(st)
 
 func load_level(id: String):
 	var file = FileAccess.open("res://src/gameplay/levels/" + id, FileAccess.READ)
@@ -61,7 +62,7 @@ func _ready() -> void:
 			row.append(null)
 		drawer_block_pointers.append(row)
 	
-	load_level("tutorial")
+	load_level("test2")
 	update_all_hitboxes()
 
 func cache_board():
@@ -164,20 +165,35 @@ func snap_block(block):
 		block.position = board_tile * 16
 		block.on_board = true
 		block_pointers[board_tile.x][board_tile.y] = block
+		SFX.place()
 	elif drawer_tile != Vector2(-1, -1) and drawer_block_pointers[drawer_tile.x][drawer_tile.y] == null:
 		remove_reference(block)
 		block.reparent($DrawerBlocks)
 		block.position = drawer_tile * 16
 		block.on_board = false
 		drawer_block_pointers[drawer_tile.x][drawer_tile.y] = block
+		SFX.place()
 	else:
 		block.position = block.old_position
 	
 	update_all_hitboxes()
 
+func try_process_block(block, left, right, up, down):
+	match (block.get_type()):
+		Operators.EQUALITY:       return Operators.eq(block, left, right, queue_block_at)
+		Operators.ADDITION:       return Operators.add(block, left, right, up, down)
+		Operators.MULTIPLICATION: return Operators.multiply(block, left, right, up, down)
+		Operators.SUBTRACTION:    return Operators.subtract(block, left, right)
+		Operators.MOVEMENT:       return Operators.move(block, left, right, queue_block_at)
+		Operators.SWAPIFICATION:  return Operators.swap(block, left, right)
+	      
+	return false
+
 func advance_stage():
 	# apparently a prerelease reference
 	# process operators
+	var did_any_operations = false
+
 	for x in range(board_width):
 		for y in range(board_height):
 			var block = block_pointers[x][y]
@@ -188,13 +204,7 @@ func advance_stage():
 			var up = null if y == 0 else get_block_at(Vector2(x, y - 1))
 			var down = null if y == board_height - 1 else get_block_at(Vector2(x, y + 1))
 
-			match (block.get_type()):
-				Operators.EQUALITY: Operators.eq(block, left, right, queue_block_at)
-				Operators.ADDITION: Operators.add(block, left, right, up, down)
-				Operators.MULTIPLICATION: Operators.multiply(block, left, right, up, down)
-				Operators.SUBTRACTION: Operators.subtract(block, left, right)
-				Operators.MOVEMENT: Operators.move(block, left, right, queue_block_at)
-				Operators.SWAPIFICATION: Operators.swap(block, left, right)
+			did_any_operations = try_process_block(block, left, right, up, down) or did_any_operations
 
 	# create blocks
 	for block in block_creation_queue:
@@ -214,6 +224,10 @@ func advance_stage():
 				block.update_visuals()
 	
 	update_all_hitboxes()
+
+	# sound effects
+	if did_any_operations:
+		SFX.operation()
 
 func update_all_hitboxes():
 	# loop through every block on the board and in the drawer

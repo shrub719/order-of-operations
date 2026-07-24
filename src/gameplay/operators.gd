@@ -18,7 +18,7 @@ func get_numerical_neighbours(left, right, up, down):
 	
 func add(slf, left, right, up, down):
 	var numerical_neighbours = get_numerical_neighbours(left, right, up, down)
-	if len(numerical_neighbours) < 2: return
+	if len(numerical_neighbours) < 2: return false
 
 	var sum = 0
 	for block in numerical_neighbours:
@@ -27,10 +27,11 @@ func add(slf, left, right, up, down):
 	sum = sum % 10
 
 	slf.next_type = sum
+	return true
 
 func multiply(slf, left, right, up, down):
 	var numerical_neighbours = get_numerical_neighbours(left, right, up, down)
-	if len(numerical_neighbours) < 2: return
+	if len(numerical_neighbours) < 2: return false
 
 	var product = 1
 	for block in numerical_neighbours:
@@ -39,20 +40,22 @@ func multiply(slf, left, right, up, down):
 	product = product % 10
 
 	slf.next_type = product
+	return true
 
 func subtract(slf, left, right):
-	if left == null or left.is_operator(): return
-	if right == null or right.is_operator(): return
+	if left == null or left.is_operator(): return false
+	if right == null or right.is_operator(): return false
 
 	var difference = abs(left.get_type() - right.get_type())
 	left.destroy()
 	right.destroy()
 	slf.next_type = difference
+	return true
 
 func eq(slf, left, right, queue_block_at):
-	if left != null and right != null: return
-	if left == null and right == null: return
-	if (left != null and left.is_operator()) or (right != null and right.is_operator()): return
+	if left != null and right != null: return false
+	if left == null and right == null: return false
+	if (left != null and left.is_operator()) or (right != null and right.is_operator()): return false
 	var next_type = left.get_type() if left != null else right.get_type()
 	
 	if left == null:
@@ -61,11 +64,12 @@ func eq(slf, left, right, queue_block_at):
 		queue_block_at.call(slf.get_grid_position() + Vector2(1, 0), next_type)
 	
 	slf.destroy()
+	return true
 
 func move(slf, left, right, queue_block_at):
-	if left != null and right != null: return
-	if left == null and right == null: return
-	if (left != null and left.is_operator()) or (right != null and right.is_operator()): return
+	if left != null and right != null: return false
+	if left == null and right == null: return false
+	if (left != null and left.is_operator()) or (right != null and right.is_operator()): return false
 
 	var next_type = left.get_type() if left != null else right.get_type()
 	
@@ -77,11 +81,13 @@ func move(slf, left, right, queue_block_at):
 		left.destroy()
 	
 	slf.destroy()
+	return true
 
 func swap(slf, left, right):
-	if left == null or left.is_operator(): return
-	if right == null or right.is_operator(): return
+	if left == null or left.is_operator(): return false
+	if right == null or right.is_operator(): return false
 
 	left.next_type = right.get_type()
 	right.next_type = left.get_type()
 	slf.destroy()
+	return true
