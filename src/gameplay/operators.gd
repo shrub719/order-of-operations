@@ -84,6 +84,8 @@ func swap(slf, left, right, queue_block_at):
 	else:
 		left.next_type = right.get_type()
 		right.next_type = left.get_type()
+		left.shine()
+		right.shine()
 
 	slf.destroy()
 	return true
