@@ -57,6 +57,7 @@ func _ready() -> void:
 		drawer_block_pointers.append(row)
 	
 	load_level("tutorial")
+	update_all_hitboxes()
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_accept"):
@@ -77,6 +78,8 @@ func make_block_at(pos, type, on_board):
 	else:
 		$DrawerBlocks.add_child(block_node)
 		drawer_block_pointers[int(pos.x)][int(pos.y)] = block_node
+	
+	update_all_hitboxes()
 
 func queue_block_at(pos, type):
 	block_creation_queue.append([pos, type])
@@ -131,6 +134,8 @@ func snap_block(block):
 		drawer_block_pointers[drawer_tile.x][drawer_tile.y] = block
 	else:
 		block.position = block.old_position
+	
+	update_all_hitboxes()
 
 func advance_stage():
 	# apparently a prerelease reference
@@ -169,3 +174,33 @@ func advance_stage():
 				block_pointers[x][y] = null
 			else:
 				block.update_visuals()
+	
+	update_all_hitboxes()
+
+func update_all_hitboxes():
+	# loop through every block on the board and in the drawer
+	# blocks with their front face obscured can only be picked up from the top
+	# blocks WITHOUT their front face obscured can be picked up from there too
+
+	for x in range(board_width):
+		for y in range(board_height):
+			var block = block_pointers[x][y]
+			if block == null: continue
+			if y == board_height - 1: 
+				# if we're on the bottom of the board then obv the front face is clear
+				block.is_front_obscured = false
+				continue
+			
+			block.is_front_obscured = block_pointers[x][y + 1] != null
+	
+	for x in range(DRAWER_WIDTH):
+		for y in range(DRAWER_HEIGHT):
+			var block = drawer_block_pointers[x][y]
+			if block == null: continue
+			if y == DRAWER_HEIGHT - 1: 
+				# if we're on the bottom of the board then obv the front face is clear
+				block.is_front_obscured = false
+				continue
+			
+			block.is_front_obscured = drawer_block_pointers[x][y + 1] != null
+

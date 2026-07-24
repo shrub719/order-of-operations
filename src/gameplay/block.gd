@@ -34,10 +34,14 @@ func get_grid_position():
 
 var drag := false
 var old_position = Vector2(0, 0)
+var is_front_obscured := false
 
 func is_mouse_over():
 	var mouse = get_local_mouse_position()
-	var bounds = Rect2(Vector2(0, -8), Vector2(16, 16))
+	var bounds = Rect2(Vector2(0, -6), Vector2(16, 16))
+	if not is_front_obscured:
+		# include front face
+		bounds = Rect2(Vector2(0, -6), Vector2(16, 22))
 	return bounds.has_point(mouse)
 
 func _input(event: InputEvent) -> void:
