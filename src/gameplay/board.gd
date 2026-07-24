@@ -46,17 +46,6 @@ func load_level(id: String):
 			var colour = 0 if (x + y) % 2 == 0 else 1
 			$BackgroundTiles.set_cell(Vector2i(x, y), 1, Vector2i(colour, 0))
 
-	# board blocks
-	for block in content[1]:
-		var type = str_to_type(block[2])
-		make_block_at(Vector2(int(block[0]), int(block[1])), type, true)
-
-	# drawer blocks
-	for block in content[2]:
-		var type = str_to_type(block[2])
-		make_block_at(Vector2(int(block[0]), int(block[1])), type, false)
-
-func _ready() -> void:
 	# initialise pointer array
 	for i in range(board_width):
 		var row = []
@@ -72,8 +61,19 @@ func _ready() -> void:
 		for j in range(DRAWER_HEIGHT): 
 			row.append(null)
 		drawer_block_pointers.append(row)
-	
-	load_level("test2")
+
+	# board blocks
+	for block in content[1]:
+		var type = str_to_type(block[2])
+		make_block_at(Vector2(int(block[0]), int(block[1])), type, true)
+
+	# drawer blocks
+	for block in content[2]:
+		var type = str_to_type(block[2])
+		make_block_at(Vector2(int(block[0]), int(block[1])), type, false)
+
+func _ready() -> void:
+	load_level("swaptest")
 	update_all_hitboxes()
 
 func cache_board():
