@@ -2,6 +2,7 @@ extends Node2D
 
 @export var board: Board
 @export var animation_controller: AnimationPlayer
+@export var playback_text: Sprite2D
 
 @onready var playpause_button: PlaybackButton = $PlayPause
 @onready var advance_button: PlaybackButton = $Advance
@@ -10,10 +11,23 @@ extends Node2D
 var is_in_playback_mode := false
 var is_paused := false
 
+var playback_text_cycle_cooldown = 0.0
+
 func _ready() -> void:
 	# TODO: set up signals
 	advance_button.clicked.connect(advance_button_clicked)
 	resetstop_button.clicked.connect(resetstop_button_clicked)
+
+func _process(delta: float) -> void:
+	playback_text_cycle_cooldown += delta
+	
+	if not is_in_playback_mode:
+		playback_text.self_modulate.a = 0
+	
+	if playback_text_cycle_cooldown >= 1: # one second has passed
+		playback_text_cycle_cooldown = 0
+		if is_in_playback_mode:
+			playback_text.self_modulate.a = 1.0 if playback_text.self_modulate.a != 1.0 else 0.25
 
 func advance_button_clicked():
 	update_playback_mode(true)
@@ -43,6 +57,7 @@ func update_playback_mode(value):
 		board.cache_board()
 		Settings.can_drag_blocks = false
 		animation_controller.play("begin_playback")
+		playback_text_cycle_cooldown = 1
 	else:
 		# update buttons
 		playpause_button.frame_coords.x = 0
