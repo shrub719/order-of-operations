@@ -68,7 +68,7 @@ _data = {
 y_sort_enabled = true
 
 [node name="Board" type="Node2D" parent="." unique_id=1854775700]
-position = Vector2(120, 40)
+position = Vector2(100, 40)
 script = ExtResource("1_03kt7")
 
 [node name="BackgroundTiles" type="TileMapLayer" parent="Board" unique_id=1637744787]
@@ -78,7 +78,7 @@ tile_set = ExtResource("1_j20h5")
 
 [node name="Drawer" type="Sprite2D" parent="Board" unique_id=425829429]
 z_index = -10
-position = Vector2(160, 47)
+position = Vector2(180, 47)
 texture = ExtResource("3_4bsf5")
 
 [node name="Blocks" type="Node2D" parent="Board" unique_id=976756424]
@@ -86,7 +86,7 @@ y_sort_enabled = true
 
 [node name="DrawerBlocks" type="Node2D" parent="Board" unique_id=139004882]
 y_sort_enabled = true
-position = Vector2(144, 7)
+position = Vector2(164, 7)
 
 [node name="SimulatedBlocks" type="Node2D" parent="Board" unique_id=304954885]
 position = Vector2(-104, -40)
