@@ -35,7 +35,10 @@ func advance_button_clicked():
 	board.advance_stage()
 
 func resetstop_button_clicked():
-	update_playback_mode(false)
+	if is_in_playback_mode:
+		update_playback_mode(false)
+	else:
+		board.reset()
 
 func update_paused(value):
 	if is_paused == value: return

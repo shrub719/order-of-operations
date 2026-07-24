@@ -47,7 +47,16 @@ func load_level(id: String):
 			var colour = 0 if (x + y) % 2 == 0 else 1
 			$BackgroundTiles.set_cell(Vector2i(x, y), 1, Vector2i(colour, 0))
 
+	# purge children #homicide
+	for row in block_pointers:
+		for block in row:
+			if block != null: block.queue_free()
+	for row in drawer_block_pointers:
+		for block in row:
+			if block != null: block.queue_free()
+
 	# initialise pointer array
+	block_pointers = []
 	for i in range(board_width):
 		var row = []
 		var cache_row = []
@@ -57,6 +66,7 @@ func load_level(id: String):
 		block_pointers.append(row)
 		block_cache.append(cache_row)
 
+	drawer_block_pointers = []
 	for i in range(DRAWER_WIDTH):
 		var row = []
 		for j in range(DRAWER_HEIGHT): 
@@ -81,7 +91,10 @@ func load_level(id: String):
 	$DrawerBlocks.position = to_local(drawer.global_position)
 
 func _ready() -> void:
-	load_level("test2")
+	reset()
+
+func reset():
+	load_level(Settings.level)
 
 func cache_board():
 	# store information about every tile on the board
