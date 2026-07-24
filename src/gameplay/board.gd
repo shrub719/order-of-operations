@@ -1,3 +1,4 @@
+class_name Board
 extends Node2D
 
 @export var board_width := 5
@@ -58,10 +59,6 @@ func _ready() -> void:
 	
 	load_level("tutorial")
 	update_all_hitboxes()
-
-func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("ui_accept"):
-		advance_stage()
 
 func make_block_at(pos, type, on_board):
 	var block_node := block_scene.instantiate()

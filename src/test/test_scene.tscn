@@ -5,6 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://x0hknn6esda2" path="res://assets/drawer.png" id="3_4bsf5"]
 [ext_resource type="Texture2D" uid="uid://dpaprtq0ryble" path="res://assets/playback_controls.png" id="3_of155"]
 [ext_resource type="Texture2D" uid="uid://26lhl415w8bx" path="res://assets/playback_buttons.png" id="4_03kt7"]
+[ext_resource type="Script" uid="uid://kyll0pgufx4f" path="res://src/gui/playback_controls.gd" id="5_s6l0s"]
+[ext_resource type="Script" uid="uid://b4exisj1wvi5o" path="res://src/gui/playback_button.gd" id="6_03kt7"]
 
 [node name="TestScene" type="Node2D" unique_id=264772083]
 y_sort_enabled = true
@@ -19,6 +21,7 @@ tile_map_data = PackedByteArray("AAAAAAAAAQAAAAAAAAABAAEAAQAAAAAAAAACAAAAAQAAAAA
 tile_set = ExtResource("1_j20h5")
 
 [node name="Drawer" type="Sprite2D" parent="Board" unique_id=425829429]
+z_index = -10
 position = Vector2(179, 47)
 texture = ExtResource("3_4bsf5")
 
@@ -31,30 +34,50 @@ position = Vector2(163, 7)
 
 [node name="GUI" type="CanvasLayer" parent="." unique_id=2132230288]
 
-[node name="PlaybackControls" type="Sprite2D" parent="GUI" unique_id=1292278766]
+[node name="PlaybackControls" type="Sprite2D" parent="GUI" unique_id=1292278766 node_paths=PackedStringArray("board")]
 position = Vector2(-3, 29)
 texture = ExtResource("3_of155")
 centered = false
+script = ExtResource("5_s6l0s")
+board = NodePath("../../Board")
 
-[node name="PlaybackButtons" type="Sprite2D" parent="GUI/PlaybackControls" unique_id=1580508659]
+[node name="PlayPause" type="Sprite2D" parent="GUI/PlaybackControls" unique_id=1580508659]
 position = Vector2(18, 12)
 texture = ExtResource("4_03kt7")
 centered = false
 hframes = 5
 vframes = 2
+script = ExtResource("6_03kt7")
 
-[node name="PlaybackButtons2" type="Sprite2D" parent="GUI/PlaybackControls" unique_id=1814371975]
-position = Vector2(18, 60)
-texture = ExtResource("4_03kt7")
-centered = false
-hframes = 5
-vframes = 2
-frame = 3
+[node name="Shine" type="ColorRect" parent="GUI/PlaybackControls/PlayPause" unique_id=1499331354]
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(1, 1, 1, 0)
 
-[node name="PlaybackButtons3" type="Sprite2D" parent="GUI/PlaybackControls" unique_id=2002244954]
+[node name="Advance" type="Sprite2D" parent="GUI/PlaybackControls" unique_id=2002244954]
 position = Vector2(18, 36)
 texture = ExtResource("4_03kt7")
 centered = false
 hframes = 5
 vframes = 2
 frame = 2
+script = ExtResource("6_03kt7")
+
+[node name="Shine" type="ColorRect" parent="GUI/PlaybackControls/Advance" unique_id=53418726]
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(1, 1, 1, 0)
+
+[node name="ResetStop" type="Sprite2D" parent="GUI/PlaybackControls" unique_id=1814371975]
+position = Vector2(18, 60)
+texture = ExtResource("4_03kt7")
+centered = false
+hframes = 5
+vframes = 2
+frame = 3
+script = ExtResource("6_03kt7")
+
+[node name="Shine" type="ColorRect" parent="GUI/PlaybackControls/ResetStop" unique_id=1147679357]
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(1, 1, 1, 0)
