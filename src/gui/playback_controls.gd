@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var board: Board
+@export var animation_controller: AnimationPlayer
 
 @onready var playpause_button: PlaybackButton = $PlayPause
 @onready var advance_button: PlaybackButton = $Advance
@@ -41,6 +42,7 @@ func update_playback_mode(value):
 		# cache board state
 		board.cache_board()
 		Settings.can_drag_blocks = false
+		animation_controller.play("begin_playback")
 	else:
 		# update buttons
 		playpause_button.frame_coords.x = 0
@@ -48,3 +50,4 @@ func update_playback_mode(value):
 		# load cached board state
 		board.load_cache()
 		Settings.can_drag_blocks = true
+		animation_controller.play("end_playback")

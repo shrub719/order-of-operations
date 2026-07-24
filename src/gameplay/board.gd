@@ -61,7 +61,7 @@ func _ready() -> void:
 			row.append(null)
 		drawer_block_pointers.append(row)
 	
-	load_level("swaptest")
+	load_level("test2")
 	update_all_hitboxes()
 
 func cache_board():
@@ -178,13 +178,14 @@ func snap_block(block):
 	update_all_hitboxes()
 
 func try_process_block(block, left, right, up, down):
+	var grid_x = block.position.x / 16
 	match (block.get_type()):
-		Operators.EQUALITY:       return Operators.eq(block, left, right, queue_block_at)
 		Operators.ADDITION:       return Operators.add(block, left, right, up, down)
 		Operators.MULTIPLICATION: return Operators.multiply(block, left, right, up, down)
 		Operators.SUBTRACTION:    return Operators.subtract(block, left, right)
-		Operators.SWAPIFICATION:  return Operators.swap(block, left, right, queue_block_at)
-		  
+		# cant happen on either edge of the board
+		Operators.SWAPIFICATION:  return Operators.swap(block, left, right, queue_block_at) if grid_x != 0 and grid_x != board_width - 1 else false
+		Operators.EQUALITY:       return Operators.eq(block, left, right, queue_block_at) if grid_x != 0 and grid_x != board_width - 1 else false
 	return false
 
 func advance_stage():

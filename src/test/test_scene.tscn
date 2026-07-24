@@ -7,12 +7,68 @@
 [ext_resource type="Texture2D" uid="uid://26lhl415w8bx" path="res://assets/playback_buttons.png" id="4_03kt7"]
 [ext_resource type="Script" uid="uid://kyll0pgufx4f" path="res://src/gui/playback_controls.gd" id="5_s6l0s"]
 [ext_resource type="Script" uid="uid://b4exisj1wvi5o" path="res://src/gui/playback_button.gd" id="6_03kt7"]
+[ext_resource type="Texture2D" uid="uid://ddegng1v7w2o5" path="res://assets/playing_overlay.png" id="8_e8uke"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5j04u"]
+blend_mode = 1
+
+[sub_resource type="Animation" id="Animation_e8uke"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_1if60"]
+resource_name = "begin_playback"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.25490198)]
+}
+
+[sub_resource type="Animation" id="Animation_mjyh8"]
+resource_name = "end_playback"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.20037545),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.25490198), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mjyh8"]
+_data = {
+&"RESET": SubResource("Animation_e8uke"),
+&"begin_playback": SubResource("Animation_1if60"),
+&"end_playback": SubResource("Animation_mjyh8")
+}
 
 [node name="TestScene" type="Node2D" unique_id=264772083]
 y_sort_enabled = true
 
 [node name="Board" type="Node2D" parent="." unique_id=1854775700]
-position = Vector2(104, 40)
+position = Vector2(120, 40)
 script = ExtResource("1_03kt7")
 
 [node name="BackgroundTiles" type="TileMapLayer" parent="Board" unique_id=1637744787]
@@ -22,7 +78,7 @@ tile_set = ExtResource("1_j20h5")
 
 [node name="Drawer" type="Sprite2D" parent="Board" unique_id=425829429]
 z_index = -10
-position = Vector2(179, 47)
+position = Vector2(160, 47)
 texture = ExtResource("3_4bsf5")
 
 [node name="Blocks" type="Node2D" parent="Board" unique_id=976756424]
@@ -30,19 +86,26 @@ y_sort_enabled = true
 
 [node name="DrawerBlocks" type="Node2D" parent="Board" unique_id=139004882]
 y_sort_enabled = true
-position = Vector2(163, 7)
+position = Vector2(144, 7)
 
 [node name="SimulatedBlocks" type="Node2D" parent="Board" unique_id=304954885]
 position = Vector2(-104, -40)
 
 [node name="GUI" type="CanvasLayer" parent="." unique_id=2132230288]
 
-[node name="PlaybackControls" type="Sprite2D" parent="GUI" unique_id=1292278766 node_paths=PackedStringArray("board")]
+[node name="PlayingOverlay" type="Sprite2D" parent="GUI" unique_id=722694473]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("CanvasItemMaterial_5j04u")
+position = Vector2(160, 90)
+texture = ExtResource("8_e8uke")
+
+[node name="PlaybackControls" type="Sprite2D" parent="GUI" unique_id=1292278766 node_paths=PackedStringArray("board", "animation_controller")]
 position = Vector2(-3, 29)
 texture = ExtResource("3_of155")
 centered = false
 script = ExtResource("5_s6l0s")
 board = NodePath("../../Board")
+animation_controller = NodePath("../AnimationPlayer")
 
 [node name="PlayPause" type="Sprite2D" parent="GUI/PlaybackControls" unique_id=1580508659]
 position = Vector2(18, 12)
@@ -84,3 +147,7 @@ script = ExtResource("6_03kt7")
 offset_right = 16.0
 offset_bottom = 16.0
 color = Color(1, 1, 1, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GUI" unique_id=1664869675]
+root_node = NodePath("../PlayingOverlay")
+libraries/ = SubResource("AnimationLibrary_mjyh8")
