@@ -75,6 +75,10 @@ func encode():
 	data.type = $Sprite2D.frame
 	return data
 
+func add(n):
+	$Sprite2D.frame = ($Sprite2D.frame + n) % 10
+	next_type = $Sprite2D.frame
+
 func shine():
 	$AnimationPlayer.play("shine")
 

@@ -223,6 +223,7 @@ func try_process_block(block, left, right, up, down):
 		Operators.EQUALITY:       return Operators.eq(block, left, right, queue_block_at) if grid_x != 0 and grid_x != board_width - 1 else false
 	return false
 
+"""
 func create_blocks():
 	var sorting_criterion = func(a, b):
 		return a[0] < b[0]
@@ -257,6 +258,16 @@ func create_blocks():
 			# get new position and totals
 			last_seen_position = creation_request[0]
 			cumulative_total = creation_request[1]
+"""
+
+func create_blocks():
+	for block in block_creation_queue:
+		var existing_block = get_block_at(block[0])
+		if existing_block != null:
+			existing_block.add(block[1])
+		else:
+			make_block_at(block[0], block[1], true)
+		get_block_at(block[0]).shine()
 
 func advance_stage():
 	# apparently a prerelease reference
