@@ -67,19 +67,15 @@ _data = {
 [node name="TestScene" type="Node2D" unique_id=264772083]
 y_sort_enabled = true
 
-[node name="Board" type="Node2D" parent="." unique_id=1854775700]
+[node name="Board" type="Node2D" parent="." unique_id=1854775700 node_paths=PackedStringArray("drawer")]
 position = Vector2(100, 40)
 script = ExtResource("1_03kt7")
+drawer = NodePath("../Drawer")
 
 [node name="BackgroundTiles" type="TileMapLayer" parent="Board" unique_id=1637744787]
 z_index = -10
 tile_map_data = PackedByteArray("AAAAAAAAAQAAAAAAAAABAAEAAQAAAAAAAAACAAAAAQAAAAAAAAADAAEAAQAAAAAAAAAEAAAAAQAAAAAAAAAEAAIAAQAAAAAAAAACAAIAAQAAAAAAAAAAAAIAAQAAAAAAAAABAAMAAQAAAAAAAAADAAMAAQAAAAAAAAAAAAQAAQAAAAAAAAACAAQAAQAAAAAAAAABAAQAAQABAAAAAAACAAMAAQABAAAAAAAAAAMAAQABAAAAAAABAAIAAQABAAAAAAAAAAEAAQABAAAAAAABAAAAAQABAAAAAAACAAEAAQABAAAAAAADAAAAAQABAAAAAAAEAAEAAQABAAAAAAADAAIAAQABAAAAAAAEAAMAAQABAAAAAAADAAQAAQABAAAAAAAEAAQAAQAAAAAAAAA=")
 tile_set = ExtResource("1_j20h5")
-
-[node name="Drawer" type="Sprite2D" parent="Board" unique_id=425829429]
-z_index = -10
-position = Vector2(180, 47)
-texture = ExtResource("3_4bsf5")
 
 [node name="Blocks" type="Node2D" parent="Board" unique_id=976756424]
 y_sort_enabled = true
@@ -91,6 +87,13 @@ position = Vector2(164, 7)
 [node name="SimulatedBlocks" type="Node2D" parent="Board" unique_id=304954885]
 position = Vector2(-104, -40)
 
+[node name="Drawer" type="Sprite2D" parent="." unique_id=425829429]
+z_index = -10
+position = Vector2(264, 50)
+texture = ExtResource("3_4bsf5")
+centered = false
+offset = Vector2(-32, -40)
+
 [node name="GUI" type="CanvasLayer" parent="." unique_id=2132230288]
 
 [node name="PlayingOverlay" type="Sprite2D" parent="GUI" unique_id=722694473]
@@ -100,7 +103,7 @@ position = Vector2(160, 90)
 texture = ExtResource("8_e8uke")
 
 [node name="PlaybackControls" type="Sprite2D" parent="GUI" unique_id=1292278766 node_paths=PackedStringArray("board", "animation_controller")]
-position = Vector2(-3, 29)
+position = Vector2(-3, 37)
 texture = ExtResource("3_of155")
 centered = false
 script = ExtResource("5_s6l0s")
