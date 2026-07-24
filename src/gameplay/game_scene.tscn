@@ -1,37 +1,37 @@
 [gd_scene format=4 uid="uid://dujtrmsnowv67"]
 
-[ext_resource type="Script" uid="uid://c1t3bbxufirwj" path="res://src/gameplay/board.gd" id="1_03kt7"]
-[ext_resource type="TileSet" uid="uid://dowumvqgiy5r7" path="res://assets/background_tileset.tres" id="1_j20h5"]
-[ext_resource type="Texture2D" uid="uid://x0hknn6esda2" path="res://assets/drawer.png" id="3_4bsf5"]
-[ext_resource type="Texture2D" uid="uid://dpaprtq0ryble" path="res://assets/playback_controls.png" id="3_of155"]
-[ext_resource type="Texture2D" uid="uid://26lhl415w8bx" path="res://assets/playback_buttons.png" id="4_03kt7"]
-[ext_resource type="Texture2D" uid="uid://b5wiutdutkdpu" path="res://assets/playing_text.png" id="5_1if60"]
-[ext_resource type="Script" uid="uid://kyll0pgufx4f" path="res://src/gui/playback_controls.gd" id="5_s6l0s"]
-[ext_resource type="Script" uid="uid://b4exisj1wvi5o" path="res://src/gui/playback_button.gd" id="6_03kt7"]
-[ext_resource type="Texture2D" uid="uid://ddegng1v7w2o5" path="res://assets/playing_overlay.png" id="8_e8uke"]
-[ext_resource type="Texture2D" uid="uid://dh3xrnal1xmtw" path="res://assets/vignette.png" id="9_1if60"]
+[ext_resource type="Texture2D" uid="uid://dh3xrnal1xmtw" path="res://assets/vignette.png" id="1_co3sc"]
+[ext_resource type="Script" uid="uid://c1t3bbxufirwj" path="res://src/gameplay/board.gd" id="2_tud4r"]
+[ext_resource type="TileSet" uid="uid://dowumvqgiy5r7" path="res://assets/background_tileset.tres" id="3_sgi0b"]
+[ext_resource type="Texture2D" uid="uid://x0hknn6esda2" path="res://assets/drawer.png" id="4_g2hfw"]
+[ext_resource type="Texture2D" uid="uid://b5wiutdutkdpu" path="res://assets/playing_text.png" id="5_miim0"]
+[ext_resource type="Texture2D" uid="uid://dpaprtq0ryble" path="res://assets/playback_controls.png" id="6_pjj4l"]
+[ext_resource type="Script" uid="uid://kyll0pgufx4f" path="res://src/gui/playback_controls.gd" id="7_3b1vi"]
+[ext_resource type="Texture2D" uid="uid://26lhl415w8bx" path="res://assets/playback_buttons.png" id="8_xc72w"]
+[ext_resource type="Script" uid="uid://b4exisj1wvi5o" path="res://src/gui/playback_button.gd" id="9_exy5e"]
+[ext_resource type="Texture2D" uid="uid://ddegng1v7w2o5" path="res://assets/playing_overlay.png" id="10_3udor"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_mjyh8"]
 blend_mode = 3
 
-[node name="TestScene" type="Node2D" unique_id=264772083]
+[node name="GameScene" type="Node2D" unique_id=264772083]
 y_sort_enabled = true
 
 [node name="Vignette" type="Sprite2D" parent="." unique_id=1619732659]
 z_index = -14
 material = SubResource("CanvasItemMaterial_mjyh8")
-texture = ExtResource("9_1if60")
+texture = ExtResource("1_co3sc")
 centered = false
 
 [node name="Board" type="Node2D" parent="." unique_id=1854775700 node_paths=PackedStringArray("drawer")]
 position = Vector2(100, 40)
-script = ExtResource("1_03kt7")
+script = ExtResource("2_tud4r")
 drawer = NodePath("../Drawer")
 
 [node name="BackgroundTiles" type="TileMapLayer" parent="Board" unique_id=1637744787]
 z_index = -10
 tile_map_data = PackedByteArray("AAAAAAAAAQAAAAAAAAABAAEAAQAAAAAAAAACAAAAAQAAAAAAAAADAAEAAQAAAAAAAAAEAAAAAQAAAAAAAAAEAAIAAQAAAAAAAAACAAIAAQAAAAAAAAAAAAIAAQAAAAAAAAABAAMAAQAAAAAAAAADAAMAAQAAAAAAAAAAAAQAAQAAAAAAAAACAAQAAQAAAAAAAAABAAQAAQABAAAAAAACAAMAAQABAAAAAAAAAAMAAQABAAAAAAABAAIAAQABAAAAAAAAAAEAAQABAAAAAAABAAAAAQABAAAAAAACAAEAAQABAAAAAAADAAAAAQABAAAAAAAEAAEAAQABAAAAAAADAAIAAQABAAAAAAAEAAMAAQABAAAAAAADAAQAAQABAAAAAAAEAAQAAQAAAAAAAAA=")
-tile_set = ExtResource("1_j20h5")
+tile_set = ExtResource("3_sgi0b")
 
 [node name="Blocks" type="Node2D" parent="Board" unique_id=976756424]
 y_sort_enabled = true
@@ -46,7 +46,7 @@ position = Vector2(-104, -40)
 [node name="Drawer" type="Sprite2D" parent="." unique_id=425829429]
 z_index = -10
 position = Vector2(264, 50)
-texture = ExtResource("3_4bsf5")
+texture = ExtResource("4_g2hfw")
 centered = false
 offset = Vector2(-32, -40)
 
@@ -55,25 +55,25 @@ offset = Vector2(-32, -40)
 [node name="PlayingText" type="Sprite2D" parent="GUI" unique_id=1830557900]
 self_modulate = Color(1, 1, 1, 0)
 position = Vector2(8, 8)
-texture = ExtResource("5_1if60")
+texture = ExtResource("5_miim0")
 centered = false
 
 [node name="PlaybackControls" type="Sprite2D" parent="GUI" unique_id=1292278766 node_paths=PackedStringArray("board", "playback_overlay", "playback_text")]
 position = Vector2(-3, 37)
-texture = ExtResource("3_of155")
+texture = ExtResource("6_pjj4l")
 centered = false
-script = ExtResource("5_s6l0s")
+script = ExtResource("7_3b1vi")
 board = NodePath("../../Board")
 playback_overlay = NodePath("../PlayingOverlay")
 playback_text = NodePath("../PlayingText")
 
 [node name="PlayPause" type="Sprite2D" parent="GUI/PlaybackControls" unique_id=1580508659]
 position = Vector2(18, 12)
-texture = ExtResource("4_03kt7")
+texture = ExtResource("8_xc72w")
 centered = false
 hframes = 5
 vframes = 2
-script = ExtResource("6_03kt7")
+script = ExtResource("9_exy5e")
 
 [node name="Shine" type="ColorRect" parent="GUI/PlaybackControls/PlayPause" unique_id=1499331354]
 offset_right = 16.0
@@ -82,12 +82,12 @@ color = Color(1, 1, 1, 0)
 
 [node name="Advance" type="Sprite2D" parent="GUI/PlaybackControls" unique_id=2002244954]
 position = Vector2(18, 36)
-texture = ExtResource("4_03kt7")
+texture = ExtResource("8_xc72w")
 centered = false
 hframes = 5
 vframes = 2
 frame = 2
-script = ExtResource("6_03kt7")
+script = ExtResource("9_exy5e")
 
 [node name="Shine" type="ColorRect" parent="GUI/PlaybackControls/Advance" unique_id=53418726]
 offset_right = 16.0
@@ -96,12 +96,12 @@ color = Color(1, 1, 1, 0)
 
 [node name="ResetStop" type="Sprite2D" parent="GUI/PlaybackControls" unique_id=1814371975]
 position = Vector2(18, 60)
-texture = ExtResource("4_03kt7")
+texture = ExtResource("8_xc72w")
 centered = false
 hframes = 5
 vframes = 2
 frame = 3
-script = ExtResource("6_03kt7")
+script = ExtResource("9_exy5e")
 
 [node name="Shine" type="ColorRect" parent="GUI/PlaybackControls/ResetStop" unique_id=1147679357]
 offset_right = 16.0
@@ -111,4 +111,4 @@ color = Color(1, 1, 1, 0)
 [node name="PlayingOverlay" type="Sprite2D" parent="GUI" unique_id=302952973]
 visible = false
 position = Vector2(160, 90)
-texture = ExtResource("8_e8uke")
+texture = ExtResource("10_3udor")
