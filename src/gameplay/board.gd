@@ -43,7 +43,7 @@ func load_level(id: String):
 
 	for x in range(board_width):
 		for y in range(board_height):
-			var colour = 1 if (x + y) % 2 == 0 else 0
+			var colour = 0 if (x + y) % 2 == 0 else 1
 			$BackgroundTiles.set_cell(Vector2i(x, y), 1, Vector2i(colour, 0))
 
 	# board blocks
