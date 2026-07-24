@@ -37,7 +37,7 @@ var old_position = Vector2(0, 0)
 
 func is_mouse_over():
 	var mouse = get_local_mouse_position()
-	var bounds = Rect2(Vector2(0, -8), Vector2(16, 24))
+	var bounds = Rect2(Vector2(0, -8), Vector2(16, 16))
 	return bounds.has_point(mouse)
 
 func _input(event: InputEvent) -> void:
