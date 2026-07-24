@@ -8,6 +8,98 @@
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xam7p"]
 blend_mode = 3
 
+[sub_resource type="Animation" id="Animation_5j04u"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../GPUParticles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_qd3b3"]
+resource_name = "shine"
+length = 0.43333334
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../GPUParticles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0009999999),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xfcjm"]
+_data = {
+&"RESET": SubResource("Animation_5j04u"),
+&"shine": SubResource("Animation_qd3b3")
+}
+
+[sub_resource type="Gradient" id="Gradient_5j04u"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_c8bid"]
+gradient = SubResource("Gradient_5j04u")
+width = 4
+height = 4
+
+[sub_resource type="Curve" id="Curve_5j04u"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_5j04u"]
+curve = SubResource("Curve_5j04u")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5j04u"]
+particle_flag_disable_z = true
+angle_min = -56.99999
+angle_max = 72.500015
+spread = 180.0
+flatness = 1.0
+initial_velocity_max = 75.54
+angular_velocity_min = -103.60001
+angular_velocity_max = 36.259983
+gravity = Vector3(0, 0, 0)
+damping_min = 48.202003
+damping_max = 69.066
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_5j04u")
+
 [node name="Tile" type="Node2D" unique_id=214883983]
 script = ExtResource("1_5j04u")
 
@@ -57,3 +149,23 @@ centered = false
 position = Vector2(-12, -10)
 texture = ExtResource("3_tdspo")
 centered = false
+
+[node name="Shine" type="ColorRect" parent="." unique_id=20789883]
+offset_top = -6.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(1, 1, 1, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1552226948]
+root_node = NodePath("../Shine")
+libraries/ = SubResource("AnimationLibrary_xfcjm")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1818838155]
+z_index = -1
+position = Vector2(8, 1)
+emitting = false
+amount = 40
+texture = SubResource("GradientTexture2D_c8bid")
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_5j04u")

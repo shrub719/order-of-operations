@@ -207,6 +207,7 @@ func advance_stage():
 	# create blocks
 	for block in block_creation_queue:
 		make_block_at(block[0], block[1], true)
+		get_block_at(block[0]).shine()
 	block_creation_queue = []
 
 	# flush changes

@@ -75,6 +75,9 @@ func encode():
 	data.type = $Sprite2D.frame
 	return data
 
+func shine():
+	$AnimationPlayer.play("shine")
+
 class BlockData:
 	# enough information to recreate a block 
 	var is_locked := false

@@ -26,6 +26,7 @@ func add(slf, left, right, up, down):
 	sum = sum % 10
 
 	slf.next_type = sum
+	slf.shine()
 	return true
 
 func multiply(slf, left, right, up, down):
@@ -39,6 +40,7 @@ func multiply(slf, left, right, up, down):
 	product = product % 10
 
 	slf.next_type = product
+	slf.shine()
 	return true
 
 func subtract(slf, left, right):
@@ -49,6 +51,7 @@ func subtract(slf, left, right):
 	left.destroy()
 	right.destroy()
 	slf.next_type = difference
+	slf.shine()
 	return true
 
 func eq(slf, left, right, queue_block_at):
