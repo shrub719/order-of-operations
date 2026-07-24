@@ -8,62 +8,11 @@
 [ext_resource type="Texture2D" uid="uid://b5wiutdutkdpu" path="res://assets/playing_text.png" id="5_1if60"]
 [ext_resource type="Script" uid="uid://kyll0pgufx4f" path="res://src/gui/playback_controls.gd" id="5_s6l0s"]
 [ext_resource type="Script" uid="uid://b4exisj1wvi5o" path="res://src/gui/playback_button.gd" id="6_03kt7"]
+[ext_resource type="Texture2D" uid="uid://ddegng1v7w2o5" path="res://assets/playing_overlay.png" id="8_e8uke"]
 [ext_resource type="Texture2D" uid="uid://dh3xrnal1xmtw" path="res://assets/vignette.png" id="9_1if60"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_mjyh8"]
 blend_mode = 3
-
-[sub_resource type="Animation" id="Animation_e8uke"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_1if60"]
-resource_name = "begin_playback"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.25490198)]
-}
-
-[sub_resource type="Animation" id="Animation_mjyh8"]
-resource_name = "end_playback"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.20037545),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0.25490198), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_mjyh8"]
-_data = {
-&"RESET": SubResource("Animation_e8uke"),
-&"begin_playback": SubResource("Animation_1if60"),
-&"end_playback": SubResource("Animation_mjyh8")
-}
 
 [node name="TestScene" type="Node2D" unique_id=264772083]
 y_sort_enabled = true
@@ -109,13 +58,13 @@ position = Vector2(8, 8)
 texture = ExtResource("5_1if60")
 centered = false
 
-[node name="PlaybackControls" type="Sprite2D" parent="GUI" unique_id=1292278766 node_paths=PackedStringArray("board", "animation_controller", "playback_text")]
+[node name="PlaybackControls" type="Sprite2D" parent="GUI" unique_id=1292278766 node_paths=PackedStringArray("board", "playback_overlay", "playback_text")]
 position = Vector2(-3, 37)
 texture = ExtResource("3_of155")
 centered = false
 script = ExtResource("5_s6l0s")
 board = NodePath("../../Board")
-animation_controller = NodePath("../AnimationPlayer")
+playback_overlay = NodePath("../PlayingOverlay")
 playback_text = NodePath("../PlayingText")
 
 [node name="PlayPause" type="Sprite2D" parent="GUI/PlaybackControls" unique_id=1580508659]
@@ -159,6 +108,7 @@ offset_right = 16.0
 offset_bottom = 16.0
 color = Color(1, 1, 1, 0)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="GUI" unique_id=1664869675]
-root_node = NodePath("")
-libraries/ = SubResource("AnimationLibrary_mjyh8")
+[node name="PlayingOverlay" type="Sprite2D" parent="GUI" unique_id=302952973]
+visible = false
+position = Vector2(160, 90)
+texture = ExtResource("8_e8uke")

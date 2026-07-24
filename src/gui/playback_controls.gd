@@ -1,7 +1,8 @@
 extends Node2D
 
 @export var board: Board
-@export var animation_controller: AnimationPlayer
+@export var playback_overlay: Sprite2D
+var playback_overlay_opacity_target = 0.0
 @export var playback_text: Sprite2D
 
 @onready var playpause_button: PlaybackButton = $PlayPause
@@ -17,9 +18,12 @@ func _ready() -> void:
 	# TODO: set up signals
 	advance_button.clicked.connect(advance_button_clicked)
 	resetstop_button.clicked.connect(resetstop_button_clicked)
+	playback_overlay.self_modulate.a = 0.0
+	playback_overlay.visible = true
 
 func _process(delta: float) -> void:
 	playback_text_cycle_cooldown += delta
+	playback_overlay.self_modulate.a = lerp(playback_overlay.self_modulate.a, playback_overlay_opacity_target, 0.1)
 	
 	if not is_in_playback_mode:
 		playback_text.self_modulate.a = 0
@@ -59,8 +63,8 @@ func update_playback_mode(value):
 		# cache board state
 		board.cache_board()
 		Settings.can_drag_blocks = false
-		animation_controller.play("begin_playback")
 		playback_text_cycle_cooldown = 1
+		playback_overlay_opacity_target = 1.0
 	else:
 		# update buttons
 		playpause_button.frame_coords.x = 0
@@ -68,4 +72,4 @@ func update_playback_mode(value):
 		# load cached board state
 		board.load_cache()
 		Settings.can_drag_blocks = true
-		animation_controller.play("end_playback")
+		playback_overlay_opacity_target = 0.0
