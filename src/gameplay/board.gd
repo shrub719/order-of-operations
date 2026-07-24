@@ -26,6 +26,8 @@ func str_to_type(st: String):
 func load_level(id: String):
 	var file = FileAccess.open("res://src/gameplay/levels/" + id, FileAccess.READ)
 	var text = file.get_as_text()
+	# FUCK OFF WINDOWS
+	text = text.remove_char(ord("\r"))
 
 	var content = []
 	for section in text.split("\n\n"):
