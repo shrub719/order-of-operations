@@ -32,6 +32,7 @@ func get_grid_position():
 	return position / 16
 
 var drag := false
+var old_position = Vector2(0, 0)
 
 func is_mouse_over():
 	var mouse = get_local_mouse_position()
@@ -42,10 +43,13 @@ func _input(event: InputEvent) -> void:
 	if is_mouse_over() and not locked and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.is_pressed():
 			drag = true
+			old_position = position
+			z_index = 10
 		elif event.is_released():
 			drag = false
 			# fuck signals man
 			get_parent().get_parent().snap_block(self)
+			z_index = 0
 
 func _process(delta):
 	if drag:

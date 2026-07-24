@@ -65,6 +65,7 @@ func _process(delta: float) -> void:
 func make_block_at(pos, type, on_board):
 	var block_node := block_scene.instantiate()
 	block_node.position = pos * 16
+	block_node.old_position = block_node.position
 	block_node.next_type = type
 	block_node.locked = on_board
 	block_node.update_visuals()
@@ -82,10 +83,43 @@ func queue_block_at(pos, type):
 func get_block_at(pos):
 	return block_pointers[int(pos.x)][int(pos.y)]
 
+func get_nearest_tile(coord: Vector2, width, height):
+	var x = coord.x
+	var y = coord.y
+	var closest_coord = Vector2(roundf(x), roundf(y))
+	print(coord)
+
+	var distance = (closest_coord - coord).length()
+
+	if not (0 <= closest_coord.x and closest_coord.x < width and 0 <= closest_coord.y and closest_coord.y < height):
+		return Vector2(-1, -1)
+	elif distance >= 0.7:	# about sqrt 2 / 2
+		return Vector2(-1, -1)
+	else:
+		return closest_coord
+
 func snap_block(block):
 	# round to nearrest coord
 	# if close enough (and empty), then remove old reference and add new one
-	pass
+	var board_position = block.global_position - $Blocks.global_position
+	var drawer_position = block.global_position - $DrawerBlocks.global_position
+
+	var board_coords = board_position / 16
+	var drawer_coords = drawer_position / 16
+
+	var board_tile = get_nearest_tile(board_coords, board_width, board_height)
+	var drawer_tile = get_nearest_tile(drawer_coords, DRAWER_WIDTH, DRAWER_HEIGHT)
+
+	if board_tile != Vector2(-1, -1) and block_pointers[board_tile.x][board_tile.y] == null:
+		print("board")
+		block.reparent($Blocks)
+		block.position = board_tile * 16
+	elif drawer_tile != Vector2(-1, -1) and drawer_block_pointers[drawer_tile.x][drawer_tile.y] == null:
+		print("drawer")
+		block.reparent($DrawerBlocks)
+		block.position = drawer_tile * 16
+	else:
+		block.position = block.old_position
 
 func advance_stage():
 	# apparently a prerelease reference
