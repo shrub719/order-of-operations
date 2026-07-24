@@ -2,6 +2,7 @@ class_name Block
 extends Node2D
 
 var locked := false
+var on_board := false
 var to_be_destroyed := false
 var next_type := 0
 
@@ -45,7 +46,7 @@ func _input(event: InputEvent) -> void:
 			drag = true
 			old_position = position
 			z_index = 10
-		elif event.is_released():
+		elif event.is_released() and drag:
 			drag = false
 			# fuck signals man
 			get_parent().get_parent().snap_block(self)

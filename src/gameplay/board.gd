@@ -68,6 +68,7 @@ func make_block_at(pos, type, on_board):
 	block_node.old_position = block_node.position
 	block_node.next_type = type
 	block_node.locked = on_board
+	block_node.on_board = on_board
 	block_node.update_visuals()
 
 	if on_board:
@@ -87,7 +88,6 @@ func get_nearest_tile(coord: Vector2, width, height):
 	var x = coord.x
 	var y = coord.y
 	var closest_coord = Vector2(roundf(x), roundf(y))
-	print(coord)
 
 	var distance = (closest_coord - coord).length()
 
@@ -97,6 +97,13 @@ func get_nearest_tile(coord: Vector2, width, height):
 		return Vector2(-1, -1)
 	else:
 		return closest_coord
+
+func remove_reference(block):
+	var old_coords = block.old_position / 16
+	if block.on_board:
+		block_pointers[old_coords.x][old_coords.y] = null
+	else:
+		drawer_block_pointers[old_coords.x][old_coords.y] = null
 
 func snap_block(block):
 	# round to nearrest coord
@@ -111,13 +118,17 @@ func snap_block(block):
 	var drawer_tile = get_nearest_tile(drawer_coords, DRAWER_WIDTH, DRAWER_HEIGHT)
 
 	if board_tile != Vector2(-1, -1) and block_pointers[board_tile.x][board_tile.y] == null:
-		print("board")
+		remove_reference(block)
 		block.reparent($Blocks)
 		block.position = board_tile * 16
+		block.on_board = true
+		block_pointers[board_tile.x][board_tile.y] = block
 	elif drawer_tile != Vector2(-1, -1) and drawer_block_pointers[drawer_tile.x][drawer_tile.y] == null:
-		print("drawer")
+		remove_reference(block)
 		block.reparent($DrawerBlocks)
 		block.position = drawer_tile * 16
+		block.on_board = false
+		drawer_block_pointers[drawer_tile.x][drawer_tile.y] = block
 	else:
 		block.position = block.old_position
 
