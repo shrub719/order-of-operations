@@ -34,13 +34,25 @@ func load_level(id: String):
 			current_section.append(line.split(" "))	
 		content.append(current_section)
 
+	for x in range(board_width):
+		for y in range(board_height):
+			$BackgroundTiles.set_cell(Vector2i(x, y))
+
+	board_width = int(content[0][0][0])
+	board_height = int(content[0][0][1])
+
+	for x in range(board_width):
+		for y in range(board_height):
+			var colour = 1 if (x + y) % 2 == 0 else 0
+			$BackgroundTiles.set_cell(Vector2i(x, y), 1, Vector2i(colour, 0))
+
 	# board blocks
-	for block in content[0]:
+	for block in content[1]:
 		var type = str_to_type(block[2])
 		make_block_at(Vector2(int(block[0]), int(block[1])), type, true)
 
 	# drawer blocks
-	for block in content[1]:
+	for block in content[2]:
 		var type = str_to_type(block[2])
 		make_block_at(Vector2(int(block[0]), int(block[1])), type, false)
 
