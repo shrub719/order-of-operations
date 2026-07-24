@@ -10,6 +10,8 @@ const OPERATION_2 = preload("res://assets/sfx/operationFast.wav")
 
 const CLICK = preload("res://assets/sfx/click.wav")
 
+const BOARD_ENTRY = preload("res://assets/sfx/boardEntry.wav")
+
 func _ready():
 	for i in range(16):
 		var player = AudioStreamPlayer.new()
@@ -39,3 +41,6 @@ func click(button):
 	var stream = CLICK
 	var pitch_scale = 1 - 0.05 * button
 	play(stream, pitch_scale)
+
+func board_entry():
+	play(BOARD_ENTRY)

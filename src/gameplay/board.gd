@@ -94,6 +94,7 @@ func _ready() -> void:
 	reset()
 
 func reset():
+	SFX.board_entry()
 	load_level(Settings.level)
 
 func cache_board():
