@@ -221,6 +221,41 @@ func try_process_block(block, left, right, up, down):
 		Operators.EQUALITY:       return Operators.eq(block, left, right, queue_block_at) if grid_x != 0 and grid_x != board_width - 1 else false
 	return false
 
+func create_blocks():
+	var sorting_criterion = func(a, b):
+		return a[0] < b[0]
+		# basically sort the creation requests by position
+
+	block_creation_queue.sort_custom(sorting_criterion)
+	var last_seen_position := Vector2(-1, -1)
+	var cumulative_total = 0
+
+	for idx in range(len(block_creation_queue) + 1):
+		if idx == len(block_creation_queue):
+			# last element, flush last cumulative creation
+			make_block_at(last_seen_position, cumulative_total % 10, true)
+			get_block_at(last_seen_position).shine()
+			continue
+
+		var creation_request = block_creation_queue[idx]
+
+		if last_seen_position == Vector2(-1, -1):
+			# first request
+			last_seen_position = creation_request[0]
+			cumulative_total = creation_request[1]
+		elif creation_request[0] == last_seen_position:
+			# trying to create another block at this position!
+			# just accumulate the values
+			cumulative_total += creation_request[1]
+		else:
+			# finished accumulating and found a new block position
+			# flush last cumulative creation
+			make_block_at(last_seen_position, cumulative_total % 10, true)
+			get_block_at(last_seen_position).shine()
+			# get new position and totals
+			last_seen_position = creation_request[0]
+			cumulative_total = creation_request[1]
+
 func advance_stage():
 	# apparently a prerelease reference
 	# process operators
@@ -239,10 +274,9 @@ func advance_stage():
 			did_any_operations = try_process_block(block, left, right, up, down) or did_any_operations
 
 	# create blocks
-	for block in block_creation_queue:
-		make_block_at(block[0], block[1], true)
-		get_block_at(block[0]).shine()
-	block_creation_queue = []
+	if len(block_creation_queue) > 0:
+		create_blocks()
+		block_creation_queue = []
 
 	# flush changes
 	for x in range(board_width):
