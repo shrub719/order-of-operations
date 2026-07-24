@@ -8,6 +8,8 @@ const PLACE = preload("res://assets/sfx/place.wav")
 const OPERATION_1 = preload("res://assets/sfx/operation.wav")
 const OPERATION_2 = preload("res://assets/sfx/operationFast.wav")
 
+const CLICK = preload("res://assets/sfx/click.wav")
+
 func interact(locked):
 	stream = INTERACT_LOCKED if locked else INTERACT
 	play()
@@ -20,3 +22,9 @@ func operation():
 	stream = OPERATION_1 if randf() > 0.2 else OPERATION_2
 	pitch_scale = randf_range(0.5, 1.5)
 	play()
+
+func click(button):
+	stream = CLICK
+	pitch_scale = 1 - 0.05 * button
+	play()
+

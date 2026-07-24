@@ -2,6 +2,7 @@ class_name PlaybackButton
 extends Sprite2D
 
 signal clicked
+@onready var SFX: SFXManager = $"/root/Sfxmanager"
 
 var is_held_down := false
 
@@ -29,3 +30,4 @@ func _input(event: InputEvent) -> void:
 	if not was_held_down and is_held_down:
 		# just clicked, emit a signal
 		clicked.emit()
+		SFX.click(frame)
