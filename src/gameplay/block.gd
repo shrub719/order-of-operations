@@ -16,7 +16,7 @@ func update_visuals():
 	if next_type != 0:
 		$Outline.modulate = Color("14182e")
 	else:
-		$Outline.modulate = Color("92e8c0")
+		$Outline.modulate = Color("ffffff")
 
 func is_number():
 	return $Sprite2D.frame <= 9
