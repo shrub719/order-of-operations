@@ -2,9 +2,13 @@
 
 [ext_resource type="Theme" uid="uid://c8jgk17w26iq0" path="res://src/gui/theme.tres" id="1_px8jt"]
 [ext_resource type="FontFile" uid="uid://lvfpwe0bo7uj" path="res://assets/font/alagard.ttf" id="2_8tors"]
+[ext_resource type="Script" uid="uid://dnxiknity61bh" path="res://src/gui/level_button.gd" id="3_8tors"]
 
 [node name="Button" type="Button" unique_id=427891641]
 size_flags_horizontal = 3
 theme = ExtResource("1_px8jt")
 theme_override_fonts/font = ExtResource("2_8tors")
 text = "1. Fortress"
+script = ExtResource("3_8tors")
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]
