@@ -242,6 +242,9 @@ func try_process_block(block, left, right, up, down):
 		# cant happen on either edge of the board
 		Operators.SWAPIFICATION:  return Operators.swap(block, left, right, queue_block_at) if grid_x != 0 and grid_x != board_width - 1 else false
 		Operators.EQUALITY:       return Operators.eq(block, left, right, queue_block_at) if grid_x != 0 and grid_x != board_width - 1 else false
+		Operators.GLYPH_EQUALITY: return Operators.glyph_eq(block, left, right, queue_block_at) if grid_x != 0 and grid_x != board_width - 1 else false
+		Operators.GLYPH_SWAPIFICATION: return Operators.glyph_swap(block, left, right, queue_block_at) if grid_x != 0 and grid_x != board_width - 1 else false
+
 	return false
 
 """
@@ -282,6 +285,7 @@ func create_blocks():
 """
 
 func create_blocks():
+	var zero_created = false
 	for block in block_creation_queue:
 		var existing_block = get_block_at(block[0])
 		if existing_block != null:
@@ -289,11 +293,16 @@ func create_blocks():
 		else:
 			make_block_at(block[0], block[1], true)
 		get_block_at(block[0]).shine()
+		if get_block_at(block[0]).type == 0:
+			zero_created = true
+	return zero_created
 
 func advance_stage():
 	# apparently a prerelease reference
 	# process operators
 	var did_any_operations = false
+	var zero_created = false
+	var glyphs_destroyed = false
 
 	for x in range(board_width):
 		for y in range(board_height):
@@ -319,8 +328,19 @@ func advance_stage():
 	
 	# create blocks
 	if len(block_creation_queue) > 0:
-		create_blocks()
+		zero_created = create_blocks()
 		block_creation_queue = []
+
+	if zero_created:
+		for x in range(board_width):
+			for y in range(board_height):
+				var block = block_pointers[x][y]
+				if block == null: continue
+
+				if block.type == Operators.GLYPH_EQUALITY or block.type == Operators.GLYPH_SWAPIFICATION:
+					block.queue_free()
+					block_pointers[x][y] = null
+					glyphs_destroyed = true
 
 	# flush changes
 	for x in range(board_width):
@@ -334,6 +354,8 @@ func advance_stage():
 	# sound effects
 	if did_any_operations:
 		SFX.operation()
+	if glyphs_destroyed:
+		SFX.glyph_destroy()
 
 	if won():
 		var playback_controls = get_node("../GUI/PlaybackControls")

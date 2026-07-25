@@ -51,5 +51,3 @@ func board_entry():
 func glyph_destroy():
 	play(GLYPH_DESTROY)
 	play(GLYPH_DESTROY_2)
-
-
