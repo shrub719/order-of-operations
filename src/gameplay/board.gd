@@ -23,6 +23,7 @@ func str_to_type(st: String):
 		"swap": return Operators.SWAPIFICATION
 		"gequ": return Operators.GLYPH_EQUALITY
 		"gswap": return Operators.GLYPH_SWAPIFICATION
+		"vswap": return Operators.VERTICAL_SWAPIFICATION
 		_: return int(st)
 
 func load_level(id: String):
@@ -104,6 +105,21 @@ func _input(event):
 		var x = 0
 		var y = 0
 		for type in range(1, 16):
+			var existing_block = get_block_at(Vector2(x, y))
+			if existing_block != null: existing_block.queue_free()
+			make_block_at(Vector2(x, y), type, false)
+			y += 1
+			if y >= DRAWER_HEIGHT:
+				x += 1
+				y = 0
+			print(x, y)
+
+	if Settings.level() == "playground" and event is InputEventKey and event.pressed and event.keycode == KEY_E:
+		var x = 0
+		var y = 0
+		for type in range(16, 19):
+			var existing_block = get_block_at(Vector2(x, y))
+			if existing_block != null: existing_block.queue_free()
 			make_block_at(Vector2(x, y), type, false)
 			y += 1
 			if y >= DRAWER_HEIGHT:
@@ -237,6 +253,7 @@ func snap_block(block):
 
 func try_process_block(block, left, right, up, down):
 	var grid_x = block.position.x / 16
+	var grid_y = block.position.y / 16
 	match (block.get_type()):
 		Operators.ADDITION:       return Operators.add(block, left, right, up, down)
 		Operators.MULTIPLICATION: return Operators.multiply(block, left, right, up, down)
@@ -246,6 +263,7 @@ func try_process_block(block, left, right, up, down):
 		Operators.EQUALITY:       return Operators.eq(block, left, right, queue_block_at) if grid_x != 0 and grid_x != board_width - 1 else false
 		Operators.GLYPH_EQUALITY: return Operators.glyph_eq(block, left, right, queue_block_at) if grid_x != 0 and grid_x != board_width - 1 else false
 		Operators.GLYPH_SWAPIFICATION: return Operators.glyph_swap(block, left, right, queue_block_at) if grid_x != 0 and grid_x != board_width - 1 else false
+		Operators.VERTICAL_SWAPIFICATION: return Operators.vertical_swap(block, up, down, queue_block_at) if grid_y != 0 and grid_y != board_height - 1 else false
 
 	return false
 

@@ -8,6 +8,7 @@ const SUBTRACTION := 13
 const SWAPIFICATION := 14
 const GLYPH_EQUALITY := 15
 const GLYPH_SWAPIFICATION := 16
+const VERTICAL_SWAPIFICATION := 17
 
 func get_numerical_neighbours(left, right, up, down):
 	var neighbours = []
@@ -103,6 +104,30 @@ func swap(slf, left, right, queue_block_at):
 		right.destroy()
 		queue_block_at.call(slf.get_grid_position() - Vector2(1, 0), right_type)
 		queue_block_at.call(slf.get_grid_position() + Vector2(1, 0), left_type)
+
+	slf.destroy()
+	return true
+
+func vertical_swap(slf, up, down, queue_block_at):
+	if up != null and up.is_operator(): return false
+	if down != null and down.is_operator(): return false
+	if up == null and down == null: return false
+
+	if up == null:
+		var next_type = down.get_type()
+		queue_block_at.call(slf.get_grid_position() - Vector2(1, 0), next_type)
+		down.destroy()
+	elif down == null:
+		var next_type = up.get_type()
+		queue_block_at.call(slf.get_grid_position() + Vector2(1, 0), next_type)
+		up.destroy()
+	else:
+		var up_type = up.get_type()
+		var down_type = down.get_type()
+		up.destroy()
+		down.destroy()
+		queue_block_at.call(slf.get_grid_position() + Vector2(0, 1), down_type)
+		queue_block_at.call(slf.get_grid_position() - Vector2(0, 1), up_type)
 
 	slf.destroy()
 	return true
