@@ -193,6 +193,10 @@ func get_nearest_tile(coord: Vector2, width, height):
 
 func remove_reference(block):
 	var old_coords = block.old_position / 16
+	# temp fix for a "double click" issue
+	if old_coords.x != int(old_coords.x) or old_coords.y != int(old_coords.y):
+		print("double click bug")
+		return
 	if block.on_board:
 		block_pointers[old_coords.x][old_coords.y] = null
 	else:
