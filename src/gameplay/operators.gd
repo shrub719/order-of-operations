@@ -116,11 +116,11 @@ func vertical_swap(slf, up, down, queue_block_at):
 
 	if up == null:
 		var next_type = down.get_type()
-		queue_block_at.call(slf.get_grid_position() - Vector2(1, 0), next_type)
+		queue_block_at.call(slf.get_grid_position() + Vector2(0, 1), next_type)
 		down.destroy()
 	elif down == null:
 		var next_type = up.get_type()
-		queue_block_at.call(slf.get_grid_position() + Vector2(1, 0), next_type)
+		queue_block_at.call(slf.get_grid_position() - Vector2(0, 1), next_type)
 		up.destroy()
 	else:
 		var up_type = up.get_type()
