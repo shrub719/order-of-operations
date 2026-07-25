@@ -1,32 +1,17 @@
 extends Node
 
 var can_drag_blocks := true
-var level_order = [
-	"main",
-	"playground",
-	"tutorial-add",
-	"tutorial-chain",
-	"tutorial-operators",
-	"fortress",
-	"cascade",
-	"tutorial-swap-1",
-	"mirror-1",
-	"mirror-2",
-	"tutorial-swap-2",
-	"simulswap-1",
-	"simulswap-2",
-	"simulswap-3",
-	"shrub",
-	"swapadd-1",
-	"swapadd-2",
-	"shift-1",
-	"shift-2",
-	"train",
-	"buckle",
-	"lovers-1",
-	"lovers-2",
-]
+var level_order = []
 var level_index = 0
+
+func _ready() -> void:
+	# load level order
+	var file = FileAccess.open("res://src/gameplay/levels/LEVEL-ORDER", FileAccess.READ)
+	var text = file.get_as_text()
+	# FUCK OFF WINDOWS
+	text = text.remove_char(ord("\r"))
+	for line in text.split("\n"):
+		level_order.append(line)
 
 func level():
 	return level_order[level_index]
