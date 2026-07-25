@@ -1,0 +1,55 @@
+[gd_resource type="Theme" format=3 uid="uid://c8jgk17w26iq0"]
+
+[ext_resource type="FontFile" uid="uid://lvfpwe0bo7uj" path="res://assets/font/alagard.ttf" id="1_bofe4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bofe4"]
+bg_color = Color(0.30980393, 0.6431373, 0.72156864, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_obmh5"]
+content_margin_left = 16.0
+content_margin_top = 4.0
+content_margin_right = 16.0
+content_margin_bottom = 4.0
+bg_color = Color(0.2509804, 0.28627452, 0.4509804, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.30980393, 0.6431373, 0.72156864, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_frsdu"]
+bg_color = Color(0.078431375, 0.09411765, 0.18039216, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_loa2q"]
+bg_color = Color(0.30980393, 0.6431373, 0.72156864, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7sv8p"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ymquf"]
+bg_color = Color(0.2509804, 0.28627452, 0.4509804, 1)
+
+[resource]
+Button/fonts/font = ExtResource("1_bofe4")
+Button/styles/focus = null
+Button/styles/hover = SubResource("StyleBoxFlat_bofe4")
+Button/styles/normal = SubResource("StyleBoxFlat_obmh5")
+Button/styles/pressed = SubResource("StyleBoxFlat_frsdu")
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_loa2q")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_7sv8p")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_ymquf")

@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://soh5b00115lw"]
+
+[ext_resource type="Texture2D" uid="uid://c4beage2pukqv" path="res://assets/title_screen.png" id="1_hhk8w"]
+[ext_resource type="Texture2D" uid="uid://dh3xrnal1xmtw" path="res://assets/vignette.png" id="2_bcdgi"]
+[ext_resource type="Script" uid="uid://codngbpbaifwt" path="res://src/gui/title_screen_texture.gd" id="2_de22w"]
+[ext_resource type="Texture2D" uid="uid://cw78gs5x1liur" path="res://assets/play_button/normal.png" id="4_kb4ck"]
+[ext_resource type="Texture2D" uid="uid://c1nd1lq76ao8w" path="res://assets/play_button/pressed.png" id="5_wdebt"]
+[ext_resource type="Script" uid="uid://5b667tcr7bku" path="res://src/gui/play_button.gd" id="6_wdebt"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_de22w"]
+blend_mode = 3
+
+[node name="TitleScreen" type="Control" unique_id=655957551]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Vignette" type="Sprite2D" parent="." unique_id=1227116923]
+z_index = -14
+material = SubResource("CanvasItemMaterial_de22w")
+position = Vector2(-35, -18)
+scale = Vector2(1.2222223, 1.2222223)
+texture = ExtResource("2_bcdgi")
+centered = false
+
+[node name="TextureRect" type="Sprite2D" parent="." unique_id=1636436637]
+texture = ExtResource("1_hhk8w")
+centered = false
+script = ExtResource("2_de22w")
+
+[node name="PlayButton" type="TextureButton" parent="." unique_id=766033100]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_top = -40.0
+offset_right = 48.0
+grow_horizontal = 2
+grow_vertical = 0
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, -8)
+texture_normal = ExtResource("4_kb4ck")
+texture_pressed = ExtResource("5_wdebt")
+stretch_mode = 3
+script = ExtResource("6_wdebt")
+
+[connection signal="button_down" from="PlayButton" to="PlayButton" method="_on_button_down"]

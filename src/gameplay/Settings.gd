@@ -14,7 +14,7 @@ var level_order = [
 	"shift-1",
 	"shift-2",
 ]
-var level_index = 0
+var level_index = 9
 
 func level():
 	return level_order[level_index]
