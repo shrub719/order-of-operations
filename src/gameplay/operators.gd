@@ -7,7 +7,7 @@ const MULTIPLICATION := 12
 const SUBTRACTION := 13
 const SWAPIFICATION := 14
 const GLYPH_EQUALITY := 15
-const GLYPH_SWAPIFICIATION := 16
+const GLYPH_SWAPIFICATION := 16
 
 func get_numerical_neighbours(left, right, up, down):
 	var neighbours = []
