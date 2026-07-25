@@ -41,7 +41,7 @@ func load_level(id: String):
 		for y in range(board_height):
 			$BackgroundTiles.set_cell(Vector2i(x, y))
 
-	var title = content[0][0][0]
+	var title = " ".join(content[0][0])
 	get_parent().set_title(title)
 
 	board_width = int(content[0][1][0])
@@ -62,6 +62,7 @@ func load_level(id: String):
 
 	# initialise pointer array
 	block_pointers = []
+	block_cache = []
 	for i in range(board_width):
 		var row = []
 		var cache_row = []
@@ -316,6 +317,18 @@ func advance_stage():
 	# sound effects
 	if did_any_operations:
 		SFX.operation()
+
+	if won():
+		Settings.level_index += 1
+		get_node("../GUI/PlaybackControls").update_playback_mode(false)
+		reset()
+
+func won() -> bool:
+	for row in block_pointers:
+		for block in row:
+			if block != null and block.get_type() != 0:
+				return false
+	return true
 
 func update_all_hitboxes():
 	# loop through every block on the board and in the drawer

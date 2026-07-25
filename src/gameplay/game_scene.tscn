@@ -23,6 +23,8 @@ script = ExtResource("1_sgi0b")
 [node name="Vignette" type="Sprite2D" parent="." unique_id=1619732659]
 z_index = -14
 material = SubResource("CanvasItemMaterial_mjyh8")
+position = Vector2(-35, -18)
+scale = Vector2(1.2222223, 1.2222223)
 texture = ExtResource("1_co3sc")
 centered = false
 
