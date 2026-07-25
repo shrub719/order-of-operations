@@ -105,7 +105,7 @@ func _input(event):
 		var x = 0
 		var y = 0
 		for type in range(1, 16):
-			var existing_block = get_block_at(Vector2(x, y))
+			var existing_block = drawer_block_pointers[x][y]
 			if existing_block != null: existing_block.queue_free()
 			make_block_at(Vector2(x, y), type, false)
 			y += 1
@@ -118,7 +118,7 @@ func _input(event):
 		var x = 0
 		var y = 0
 		for type in range(16, 19):
-			var existing_block = get_block_at(Vector2(x, y))
+			var existing_block = drawer_block_pointers[x][y]
 			if existing_block != null: existing_block.queue_free()
 			make_block_at(Vector2(x, y), type, false)
 			y += 1
