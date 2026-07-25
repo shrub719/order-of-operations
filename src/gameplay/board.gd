@@ -16,11 +16,13 @@ var block_creation_queue = []
 
 func str_to_type(st: String):
 	match st:
-		"equ": return 10
-		"add": return 11
-		"mul": return 12
-		"sub": return 13
-		"swap": return 15
+		"equ": return Operators.EQUALITY
+		"add": return Operators.ADDITION
+		"mul": return Operators.MULTIPLICATION
+		"sub": return Operators.SUBTRACTION
+		"swap": return Operators.SWAPIFICATION
+		"gequ": return Operators.GLYPH_EQUALITY
+		"gswap": return Operators.GLYPH_SWAPIFICATION
 		_: return int(st)
 
 func load_level(id: String):
@@ -337,7 +339,7 @@ func advance_stage():
 				var block = block_pointers[x][y]
 				if block == null: continue
 
-				if block.type == Operators.GLYPH_EQUALITY or block.type == Operators.GLYPH_SWAPIFICATION:
+				if block.get_type() == Operators.GLYPH_EQUALITY or block.get_type() == Operators.GLYPH_SWAPIFICATION:
 					block.queue_free()
 					block_pointers[x][y] = null
 					glyphs_destroyed = true
