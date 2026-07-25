@@ -12,6 +12,9 @@ const CLICK = preload("res://assets/sfx/click.wav")
 
 const BOARD_ENTRY = preload("res://assets/sfx/boardEntry.wav")
 
+const GLYPH_DESTROY = preload("res://assets/sfx/glyphDestroy.wav")
+const GLYPH_DESTROY_2 = preload("res://assets/sfx/glyphDestroy2.wav")
+
 func _ready():
 	for i in range(16):
 		var player = AudioStreamPlayer.new()
@@ -44,3 +47,9 @@ func click(button):
 
 func board_entry():
 	play(BOARD_ENTRY)
+
+func glyph_destroy():
+	play(GLYPH_DESTROY)
+	play(GLYPH_DESTROY_2)
+
+
