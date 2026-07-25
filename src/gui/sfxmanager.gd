@@ -20,11 +20,12 @@ func _ready():
 		var player = AudioStreamPlayer.new()
 		add_child(player)
 
-func play(stream, pitch_scale = 1.0):
+func play(stream, pitch_scale = 1.0, volume = 0.0):
 	for player in get_children():
 		if !player.playing:
 			player.stream = stream
 			player.pitch_scale = pitch_scale
+			player.volume_db = volume
 			player.play()
 			return
 
@@ -49,5 +50,6 @@ func board_entry():
 	play(BOARD_ENTRY)
 
 func glyph_destroy():
-	play(GLYPH_DESTROY)
-	play(GLYPH_DESTROY_2)
+	play(GLYPH_DESTROY, 1.0, -9.0)
+	play(GLYPH_DESTROY_2, 1.0, -9.0)
+
