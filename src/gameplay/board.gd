@@ -101,32 +101,34 @@ func load_level(id: String):
 	$DrawerBlocks.position = to_local(drawer.global_position)
 
 # THIS IS FOR LEVEL CREATION ONLY TODO REMOVE
-# func _input(event):
-# 	if Settings.level() == "playground" and event is InputEventKey and event.pressed and event.keycode == KEY_Q:
-# 		var x = 0
-# 		var y = 0
-# 		for type in range(1, 16):
-# 			var existing_block = drawer_block_pointers[x][y]
-# 			if existing_block != null: existing_block.queue_free()
-# 			make_block_at(Vector2(x, y), type, false)
-# 			y += 1
-# 			if y >= DRAWER_HEIGHT:
-# 				x += 1
-# 				y = 0
-# 			print(x, y)
+# wait dont remove yet i lowkey still need it
+# we'll just remvoe playground the level
+func _input(event):
+	if Settings.level() == "playground" and event is InputEventKey and event.pressed and event.keycode == KEY_Q:
+		var x = 0
+		var y = 0
+		for type in range(1, 16):
+			var existing_block = drawer_block_pointers[x][y]
+			if existing_block != null: existing_block.queue_free()
+			make_block_at(Vector2(x, y), type, false)
+			y += 1
+			if y >= DRAWER_HEIGHT:
+				x += 1
+				y = 0
+			print(x, y)
 
-# 	if Settings.level() == "playground" and event is InputEventKey and event.pressed and event.keycode == KEY_E:
-# 		var x = 0
-# 		var y = 0
-# 		for type in range(16, 19):
-# 			var existing_block = drawer_block_pointers[x][y]
-# 			if existing_block != null: existing_block.queue_free()
-# 			make_block_at(Vector2(x, y), type, false)
-# 			y += 1
-# 			if y >= DRAWER_HEIGHT:
-# 				x += 1
-# 				y = 0
-# 			print(x, y)
+	if Settings.level() == "playground" and event is InputEventKey and event.pressed and event.keycode == KEY_E:
+		var x = 0
+		var y = 0
+		for type in range(16, 19):
+			var existing_block = drawer_block_pointers[x][y]
+			if existing_block != null: existing_block.queue_free()
+			make_block_at(Vector2(x, y), type, false)
+			y += 1
+			if y >= DRAWER_HEIGHT:
+				x += 1
+				y = 0
+			print(x, y)
 
 func _ready() -> void:
 	reset()
