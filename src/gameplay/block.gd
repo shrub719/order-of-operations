@@ -1,6 +1,7 @@
 class_name Block
 extends Node2D
 @onready var SFX: SFXManager = $"/root/Sfxmanager"
+var destruction_particles: PackedScene = preload("res://src/gameplay/destruction_particles.tscn")
 
 var locked := false
 var on_board := false
@@ -86,6 +87,11 @@ func add(n):
 
 func shine():
 	$AnimationPlayer.play("shine")
+
+func release_destruction_particles():
+	var particles = destruction_particles.instantiate()
+	particles.position = global_position
+	get_tree().root.add_child(particles)
 
 class BlockData:
 	# enough information to recreate a block 

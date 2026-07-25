@@ -358,6 +358,7 @@ func advance_stage():
 				if block == null: continue
 
 				if block.get_type() == Operators.GLYPH_EQUALITY or block.get_type() == Operators.GLYPH_SWAPIFICATION:
+					block.release_destruction_particles()
 					block.queue_free()
 					block_pointers[x][y] = null
 					glyphs_destroyed = true
