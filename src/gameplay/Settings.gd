@@ -13,6 +13,8 @@ var level_order = [
 	"buckle",
 	"shift-1",
 	"shift-2",
+	"lovers-1",
+	"lovers-2",
 ]
 var level_index = 0
 
