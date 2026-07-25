@@ -50,6 +50,6 @@ func board_entry():
 	play(BOARD_ENTRY)
 
 func glyph_destroy():
-	play(GLYPH_DESTROY, 1.0, -9.0)
-	play(GLYPH_DESTROY_2, 1.0, -9.0)
+	play(GLYPH_DESTROY, 1.0, -8.0)
+	play(GLYPH_DESTROY_2, 1.0, -8.0)
 
