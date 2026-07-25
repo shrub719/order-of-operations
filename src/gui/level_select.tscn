@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://dh3xrnal1xmtw" path="res://assets/vignette.png" id="1_paytg"]
 [ext_resource type="Texture2D" uid="uid://btaym48goi3rg" path="res://assets/level_select.png" id="2_32glv"]
-[ext_resource type="FontFile" uid="uid://lvfpwe0bo7uj" path="res://assets/font/alagard.ttf" id="2_eh0n5"]
 [ext_resource type="Theme" uid="uid://c8jgk17w26iq0" path="res://src/gui/theme.tres" id="2_frsdu"]
+[ext_resource type="Script" uid="uid://bxty6sqvbydrk" path="res://src/gui/levels_container.gd" id="4_4u10k"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_eh0n5"]
 blend_mode = 3
@@ -43,45 +43,4 @@ layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 3
 theme_override_constants/separation = 8
-
-[node name="Button" type="Button" parent="Levels/VBoxContainer" unique_id=1157253758]
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("2_frsdu")
-theme_override_fonts/font = ExtResource("2_eh0n5")
-text = "1. Fortress"
-
-[node name="Button2" type="Button" parent="Levels/VBoxContainer" unique_id=630297154]
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("2_frsdu")
-theme_override_fonts/font = ExtResource("2_eh0n5")
-text = "1. Fortress"
-
-[node name="Button3" type="Button" parent="Levels/VBoxContainer" unique_id=1903790122]
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("2_frsdu")
-theme_override_fonts/font = ExtResource("2_eh0n5")
-text = "1. Fortress"
-
-[node name="Button4" type="Button" parent="Levels/VBoxContainer" unique_id=1125410512]
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("2_frsdu")
-theme_override_fonts/font = ExtResource("2_eh0n5")
-text = "1. Fortress"
-
-[node name="Button5" type="Button" parent="Levels/VBoxContainer" unique_id=1346254102]
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("2_frsdu")
-theme_override_fonts/font = ExtResource("2_eh0n5")
-text = "1. Fortress"
-
-[node name="Button6" type="Button" parent="Levels/VBoxContainer" unique_id=1470743033]
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("2_frsdu")
-theme_override_fonts/font = ExtResource("2_eh0n5")
-text = "1. Fortress"
+script = ExtResource("4_4u10k")
