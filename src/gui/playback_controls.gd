@@ -92,3 +92,8 @@ func update_playback_mode(value):
 		board.load_cache()
 		Settings.can_drag_blocks = true
 		playback_overlay_opacity_target = 0.0
+
+func reset_sprites():
+	playpause_button.frame_coords = Vector2(0, 0)
+	advance_button.frame_coords = Vector2(2, 0)
+	resetstop_button.frame_coords = Vector2(3, 0)

@@ -386,6 +386,7 @@ func advance_stage():
 		var escape_button = get_node("../GUI/EscapeButton")
 
 		playback_controls.update_paused(true)
+		playback_controls.reset_sprites()
 		playback_controls.process_mode = Node.PROCESS_MODE_DISABLED
 		escape_button.process_mode = Node.PROCESS_MODE_DISABLED
 		await get_tree().create_timer(0.5).timeout
@@ -398,14 +399,17 @@ func advance_stage():
 			playback_controls.process_mode = Node.PROCESS_MODE_PAUSABLE
 			escape_button.process_mode = Node.PROCESS_MODE_PAUSABLE
 			playback_controls.update_playback_mode(false)
+
 			get_node("/root/Transition").transition_to("res://src/gui/level_select.tscn")
 			await get_tree().create_timer(0.5).timeout
 		else:
 			get_node("/root/Transition").transition_without_scene_change()
 			await get_node("/root/Transition").transition_complete
+
 			playback_controls.process_mode = Node.PROCESS_MODE_PAUSABLE
 			escape_button.process_mode = Node.PROCESS_MODE_PAUSABLE
 			playback_controls.update_playback_mode(false)
+
 			win_animation_controller.play("RESET")
 			reset()
 
