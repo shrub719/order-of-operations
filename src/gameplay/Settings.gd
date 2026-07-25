@@ -3,12 +3,15 @@ extends Node
 var can_drag_blocks := true
 var level_order = [
 	"playground",
-	"test1",
-	"test2",
+	"fortress",
+	"shrub",
+	"mirror-1",
 	"cascade",
 	"simulswap-1",
 	"simulswap-2",
 	"simulswap-3",
+	"swapadd-1",
+	"swapadd-2",
 	"train",
 	"buckle",
 	"shift-1",
