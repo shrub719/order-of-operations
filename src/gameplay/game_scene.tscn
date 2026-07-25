@@ -59,7 +59,7 @@ offset = Vector2(-32, -40)
 
 [node name="PlayingText" type="Sprite2D" parent="GUI" unique_id=1830557900]
 self_modulate = Color(1, 1, 1, 0)
-position = Vector2(8, 8)
+position = Vector2(8, 160)
 texture = ExtResource("5_miim0")
 centered = false
 
