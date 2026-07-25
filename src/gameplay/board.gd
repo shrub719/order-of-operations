@@ -319,8 +319,11 @@ func advance_stage():
 		SFX.operation()
 
 	if won():
+		var playback_controls = get_node("../GUI/PlaybackControls")
+		playback_controls.update_paused(true)
+		await get_tree().create_timer(1).timeout
 		Settings.level_index += 1
-		get_node("../GUI/PlaybackControls").update_playback_mode(false)
+		playback_controls.update_playback_mode(false)
 		reset()
 
 func won() -> bool:

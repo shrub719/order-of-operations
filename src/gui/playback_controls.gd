@@ -92,3 +92,4 @@ func update_playback_mode(value):
 		board.load_cache()
 		Settings.can_drag_blocks = true
 		playback_overlay_opacity_target = 0.0
+
