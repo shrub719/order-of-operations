@@ -96,6 +96,19 @@ func load_level(id: String):
 	# fix drawer blocks position
 	$DrawerBlocks.position = to_local(drawer.global_position)
 
+# THIS IS FOR LEVEL CREATION ONLY TODO REMOVE
+func _input(event):
+	if Settings.level() == "playground" and event is InputEventKey and event.pressed and event.keycode == KEY_Q:
+		var x = 0
+		var y = 0
+		for type in range(1, 16):
+			make_block_at(Vector2(x, y), type, false)
+			y += 1
+			if y >= DRAWER_HEIGHT:
+				x += 1
+				y = 0
+			print(x, y)
+
 func _ready() -> void:
 	reset()
 

@@ -2,7 +2,7 @@ extends Node
 
 var can_drag_blocks := true
 var level_order = [
-	"main",
+	"playground",
 	"test1",
 	"test2",
 	"train",
@@ -15,3 +15,4 @@ var level_index = 0
 
 func level():
 	return level_order[level_index]
+

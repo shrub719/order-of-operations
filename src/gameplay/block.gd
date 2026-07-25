@@ -46,7 +46,12 @@ func is_mouse_over():
 	return bounds.has_point(mouse)
 
 func _input(event: InputEvent) -> void:
-	if event is not InputEventMouseButton or event.button_index != MOUSE_BUTTON_LEFT:
+	if event is not InputEventMouseButton:
+		return
+	if event.button_index == MOUSE_BUTTON_RIGHT and Settings.level() == "playground" and is_mouse_over():
+		self.queue_free()
+		return
+	if event.button_index != MOUSE_BUTTON_LEFT:
 		return
 	if not is_mouse_over(): 
 		return
