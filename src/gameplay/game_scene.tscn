@@ -8,10 +8,12 @@
 [ext_resource type="Texture2D" uid="uid://b5wiutdutkdpu" path="res://assets/playing_text.png" id="5_miim0"]
 [ext_resource type="Texture2D" uid="uid://dpaprtq0ryble" path="res://assets/playback_controls.png" id="6_pjj4l"]
 [ext_resource type="Script" uid="uid://kyll0pgufx4f" path="res://src/gui/playback_controls.gd" id="7_3b1vi"]
+[ext_resource type="Script" uid="uid://cnkrbrcb2wtb2" path="res://src/gui/escape_button.gd" id="7_miim0"]
 [ext_resource type="Texture2D" uid="uid://26lhl415w8bx" path="res://assets/playback_buttons.png" id="8_xc72w"]
 [ext_resource type="Script" uid="uid://b4exisj1wvi5o" path="res://src/gui/playback_button.gd" id="9_exy5e"]
 [ext_resource type="Texture2D" uid="uid://ddegng1v7w2o5" path="res://assets/playing_overlay.png" id="10_3udor"]
 [ext_resource type="FontFile" uid="uid://lvfpwe0bo7uj" path="res://assets/font/alagard.ttf" id="11_tud4r"]
+[ext_resource type="Texture2D" uid="uid://cam4pslydwdhb" path="res://assets/escape_button.png" id="13_g2hfw"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_mjyh8"]
 blend_mode = 3
@@ -56,6 +58,12 @@ centered = false
 offset = Vector2(-32, -40)
 
 [node name="GUI" type="CanvasLayer" parent="." unique_id=2132230288]
+
+[node name="EscapeButton" type="Sprite2D" parent="GUI" unique_id=1158107786]
+texture = ExtResource("13_g2hfw")
+centered = false
+hframes = 3
+script = ExtResource("7_miim0")
 
 [node name="PlayingText" type="Sprite2D" parent="GUI" unique_id=1830557900]
 self_modulate = Color(1, 1, 1, 0)
