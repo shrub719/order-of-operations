@@ -104,6 +104,9 @@ func load_level(id: String):
 # wait dont remove yet i lowkey still need it
 # we'll just remvoe playground the level
 func _input(event):
+	if Settings.level_index >= len(Settings.level_order):
+		return
+		
 	if Settings.level() == "playground" and event is InputEventKey and event.pressed and event.keycode == KEY_Q:
 		var x = 0
 		var y = 0
