@@ -18,7 +18,7 @@ func get_numerical_neighbours(left, right, up, down):
 	if down != null and down.is_number(): neighbours.append(down)
 	return neighbours
 	
-func add(slf, left, right, up, down):
+func add(slf, left, right, up, down, queue_block_at):
 	var numerical_neighbours = get_numerical_neighbours(left, right, up, down)
 	if len(numerical_neighbours) < 2: return false
 
@@ -28,11 +28,11 @@ func add(slf, left, right, up, down):
 		block.destroy()
 	sum = sum % 10
 
-	slf.next_type = sum
-	slf.shine()
+	slf.destroy()
+	queue_block_at.call(slf.get_grid_position(), sum)
 	return true
 
-func multiply(slf, left, right, up, down):
+func multiply(slf, left, right, up, down, queue_block_at):
 	var numerical_neighbours = get_numerical_neighbours(left, right, up, down)
 	if len(numerical_neighbours) < 2: return false
 
@@ -42,19 +42,20 @@ func multiply(slf, left, right, up, down):
 		block.destroy()
 	product = product % 10
 
-	slf.next_type = product
-	slf.shine()
+	slf.destroy()
+	queue_block_at.call(slf.get_grid_position(), product)
 	return true
 
-func subtract(slf, left, right):
+func subtract(slf, left, right, queue_block_at):
 	if left == null or left.is_operator(): return false
 	if right == null or right.is_operator(): return false
 
 	var difference = abs(left.get_type() - right.get_type())
 	left.destroy()
 	right.destroy()
-	slf.next_type = difference
-	slf.shine()
+
+	slf.destroy()
+	queue_block_at.call(slf.get_grid_position(), difference)
 	return true
 
 func eq(slf, left, right, queue_block_at):

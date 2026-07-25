@@ -255,9 +255,9 @@ func try_process_block(block, left, right, up, down):
 	var grid_x = block.position.x / 16
 	var grid_y = block.position.y / 16
 	match (block.get_type()):
-		Operators.ADDITION:       return Operators.add(block, left, right, up, down)
-		Operators.MULTIPLICATION: return Operators.multiply(block, left, right, up, down)
-		Operators.SUBTRACTION:    return Operators.subtract(block, left, right)
+		Operators.ADDITION:       return Operators.add(block, left, right, up, down, queue_block_at)
+		Operators.MULTIPLICATION: return Operators.multiply(block, left, right, up, down, queue_block_at)
+		Operators.SUBTRACTION:    return Operators.subtract(block, left, right, queue_block_at)
 		# cant happen on either edge of the board
 		Operators.SWAPIFICATION:  return Operators.swap(block, left, right, queue_block_at) if grid_x != 0 and grid_x != board_width - 1 else false
 		Operators.EQUALITY:       return Operators.eq(block, left, right, queue_block_at) if grid_x != 0 and grid_x != board_width - 1 else false
