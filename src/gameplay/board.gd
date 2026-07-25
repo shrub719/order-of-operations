@@ -293,7 +293,7 @@ func create_blocks():
 		else:
 			make_block_at(block[0], block[1], true)
 		get_block_at(block[0]).shine()
-		if get_block_at(block[0]).type == 0:
+		if get_block_at(block[0]).get_type() == 0:
 			zero_created = true
 	return zero_created
 
