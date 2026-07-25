@@ -11,6 +11,7 @@ func _ready() -> void:
 	# FUCK OFF WINDOWS
 	text = text.remove_char(ord("\r"))
 	for line in text.split("\n"):
+		if line == "": continue
 		level_order.append(line)
 
 func level():
