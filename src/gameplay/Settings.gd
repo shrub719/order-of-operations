@@ -2,6 +2,7 @@ extends Node
 
 var can_drag_blocks := true
 var level_order = [
+	"main",
 	"playground",
 	"fortress",
 	"shrub",
