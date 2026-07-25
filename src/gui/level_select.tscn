@@ -4,6 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://btaym48goi3rg" path="res://assets/level_select.png" id="2_32glv"]
 [ext_resource type="Theme" uid="uid://c8jgk17w26iq0" path="res://src/gui/theme.tres" id="2_frsdu"]
 [ext_resource type="Script" uid="uid://bxty6sqvbydrk" path="res://src/gui/levels_container.gd" id="4_4u10k"]
+[ext_resource type="Texture2D" uid="uid://cam4pslydwdhb" path="res://assets/escape_button.png" id="5_1fwk0"]
+[ext_resource type="Script" uid="uid://cnkrbrcb2wtb2" path="res://src/gui/escape_button.gd" id="6_xteff"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_eh0n5"]
 blend_mode = 3
@@ -44,3 +46,10 @@ size_flags_horizontal = 6
 size_flags_vertical = 3
 theme_override_constants/separation = 8
 script = ExtResource("4_4u10k")
+
+[node name="EscapeButton" type="Sprite2D" parent="." unique_id=1275559475]
+texture = ExtResource("5_1fwk0")
+centered = false
+hframes = 3
+script = ExtResource("6_xteff")
+to_level_select = false

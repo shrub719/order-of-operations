@@ -14,9 +14,67 @@
 [ext_resource type="Texture2D" uid="uid://ddegng1v7w2o5" path="res://assets/playing_overlay.png" id="10_3udor"]
 [ext_resource type="FontFile" uid="uid://lvfpwe0bo7uj" path="res://assets/font/alagard.ttf" id="11_tud4r"]
 [ext_resource type="Texture2D" uid="uid://cam4pslydwdhb" path="res://assets/escape_button.png" id="13_g2hfw"]
+[ext_resource type="Texture2D" uid="uid://bxv2aq1s7nukb" path="res://assets/level_complete_background.png" id="15_pjj4l"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_mjyh8"]
 blend_mode = 3
+
+[sub_resource type="Animation" id="Animation_pjj4l"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(180, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_3b1vi"]
+resource_name = "win"
+length = 1.1333333
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.16666667, 0, 0, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(180, -0.25, 0, 0, -70, 0, -0.9, 1, 0, 0),
+"times": PackedFloat32Array(0, 1)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xc72w"]
+_data = {
+&"RESET": SubResource("Animation_pjj4l"),
+&"win": SubResource("Animation_3b1vi")
+}
 
 [node name="GameScene" type="Node2D" unique_id=264772083]
 y_sort_enabled = true
@@ -30,10 +88,11 @@ scale = Vector2(1.2222223, 1.2222223)
 texture = ExtResource("1_co3sc")
 centered = false
 
-[node name="Board" type="Node2D" parent="." unique_id=1854775700 node_paths=PackedStringArray("drawer")]
+[node name="Board" type="Node2D" parent="." unique_id=1854775700 node_paths=PackedStringArray("drawer", "win_animation_controller")]
 position = Vector2(100, 40)
 script = ExtResource("2_tud4r")
 drawer = NodePath("../Drawer")
+win_animation_controller = NodePath("../LevelComplete/AnimationPlayer")
 
 [node name="BackgroundTiles" type="TileMapLayer" parent="Board" unique_id=1637744787]
 z_index = -10
@@ -56,6 +115,45 @@ position = Vector2(264, 50)
 texture = ExtResource("4_g2hfw")
 centered = false
 offset = Vector2(-32, -40)
+
+[node name="LevelComplete" type="CanvasLayer" parent="." unique_id=949416698]
+layer = 2
+
+[node name="Node2D" type="Node2D" parent="LevelComplete" unique_id=97599633]
+position = Vector2(0, 180)
+
+[node name="Parallax2D" type="Parallax2D" parent="LevelComplete/Node2D" unique_id=1863305781]
+repeat_size = Vector2(320, 0)
+autoscroll = Vector2(24, 0)
+repeat_times = 2
+ignore_camera_scroll = true
+
+[node name="LevelCompleteBackground" type="Sprite2D" parent="LevelComplete/Node2D/Parallax2D" unique_id=1324728012]
+texture = ExtResource("15_pjj4l")
+centered = false
+
+[node name="TitleText" type="RichTextLabel" parent="LevelComplete/Node2D" unique_id=1005079985]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = 144.0
+offset_right = 290.0
+offset_bottom = 184.0
+grow_horizontal = 2
+grow_vertical = 0
+offset_transform_position = Vector2(-20, 12)
+theme_override_fonts/normal_font = ExtResource("11_tud4r")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[wave amp=15.0 freq=2.5 connected=1]Level Complete![/wave]"
+scroll_active = false
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelComplete" unique_id=1550458950]
+libraries/ = SubResource("AnimationLibrary_xc72w")
 
 [node name="GUI" type="CanvasLayer" parent="." unique_id=2132230288]
 

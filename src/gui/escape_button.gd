@@ -3,6 +3,7 @@ extends Sprite2D
 @onready var SFX: SFXManager = $"/root/Sfxmanager"
 
 var is_held_down := false
+@export var to_level_select := true
 
 func is_mouse_over():
 	var mouse = get_local_mouse_position()
@@ -28,4 +29,7 @@ func _input(event: InputEvent) -> void:
 
 	if not was_held_down and is_held_down:
 		SFX.click(frame)
-		get_node("/root/Transition").transition_to("res://src/gui/level_select.tscn")
+		if to_level_select:
+			get_node("/root/Transition").transition_to("res://src/gui/level_select.tscn")
+		else:
+			get_node("/root/Transition").transition_to("res://src/gui/title_screen.tscn")

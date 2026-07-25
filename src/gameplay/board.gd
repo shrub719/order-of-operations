@@ -5,6 +5,7 @@ extends Node2D
 @export var board_width := 5
 @export var board_height := 5
 @export var drawer : Sprite2D
+@export var win_animation_controller: AnimationPlayer
 const DRAWER_WIDTH := 3
 const DRAWER_HEIGHT := 5
 var block_pointers := []
@@ -100,32 +101,32 @@ func load_level(id: String):
 	$DrawerBlocks.position = to_local(drawer.global_position)
 
 # THIS IS FOR LEVEL CREATION ONLY TODO REMOVE
-func _input(event):
-	if Settings.level() == "playground" and event is InputEventKey and event.pressed and event.keycode == KEY_Q:
-		var x = 0
-		var y = 0
-		for type in range(1, 16):
-			var existing_block = drawer_block_pointers[x][y]
-			if existing_block != null: existing_block.queue_free()
-			make_block_at(Vector2(x, y), type, false)
-			y += 1
-			if y >= DRAWER_HEIGHT:
-				x += 1
-				y = 0
-			print(x, y)
+# func _input(event):
+# 	if Settings.level() == "playground" and event is InputEventKey and event.pressed and event.keycode == KEY_Q:
+# 		var x = 0
+# 		var y = 0
+# 		for type in range(1, 16):
+# 			var existing_block = drawer_block_pointers[x][y]
+# 			if existing_block != null: existing_block.queue_free()
+# 			make_block_at(Vector2(x, y), type, false)
+# 			y += 1
+# 			if y >= DRAWER_HEIGHT:
+# 				x += 1
+# 				y = 0
+# 			print(x, y)
 
-	if Settings.level() == "playground" and event is InputEventKey and event.pressed and event.keycode == KEY_E:
-		var x = 0
-		var y = 0
-		for type in range(16, 19):
-			var existing_block = drawer_block_pointers[x][y]
-			if existing_block != null: existing_block.queue_free()
-			make_block_at(Vector2(x, y), type, false)
-			y += 1
-			if y >= DRAWER_HEIGHT:
-				x += 1
-				y = 0
-			print(x, y)
+# 	if Settings.level() == "playground" and event is InputEventKey and event.pressed and event.keycode == KEY_E:
+# 		var x = 0
+# 		var y = 0
+# 		for type in range(16, 19):
+# 			var existing_block = drawer_block_pointers[x][y]
+# 			if existing_block != null: existing_block.queue_free()
+# 			make_block_at(Vector2(x, y), type, false)
+# 			y += 1
+# 			if y >= DRAWER_HEIGHT:
+# 				x += 1
+# 				y = 0
+# 			print(x, y)
 
 func _ready() -> void:
 	reset()
@@ -380,11 +381,31 @@ func advance_stage():
 
 	if won():
 		var playback_controls = get_node("../GUI/PlaybackControls")
+		var escape_button = get_node("../GUI/EscapeButton")
+
 		playback_controls.update_paused(true)
-		await get_tree().create_timer(1).timeout
+		playback_controls.process_mode = Node.PROCESS_MODE_DISABLED
+		escape_button.process_mode = Node.PROCESS_MODE_DISABLED
+		await get_tree().create_timer(0.5).timeout
+		win_animation_controller.play("win")
+		await get_tree().create_timer(3).timeout
 		Settings.level_index += 1
-		playback_controls.update_playback_mode(false)
-		reset()
+		
+		if Settings.level_index >= len(Settings.level_order):
+			# end of levels!
+			playback_controls.process_mode = Node.PROCESS_MODE_PAUSABLE
+			escape_button.process_mode = Node.PROCESS_MODE_PAUSABLE
+			playback_controls.update_playback_mode(false)
+			get_node("/root/Transition").transition_to("res://src/gui/level_select.tscn")
+			await get_tree().create_timer(0.5).timeout
+		else:
+			get_node("/root/Transition").transition_without_scene_change()
+			await get_node("/root/Transition").transition_complete
+			playback_controls.process_mode = Node.PROCESS_MODE_PAUSABLE
+			escape_button.process_mode = Node.PROCESS_MODE_PAUSABLE
+			playback_controls.update_playback_mode(false)
+			win_animation_controller.play("RESET")
+			reset()
 
 func won() -> bool:
 	for row in block_pointers:
