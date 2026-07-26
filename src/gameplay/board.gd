@@ -394,6 +394,7 @@ func advance_stage():
 		escape_button.process_mode = Node.PROCESS_MODE_DISABLED
 		await get_tree().create_timer(0.5).timeout
 		win_animation_controller.play("win")
+		SFX.complete()
 		await get_tree().create_timer(3).timeout
 		Settings.level_index += 1
 		

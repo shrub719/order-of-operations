@@ -15,6 +15,8 @@ const BOARD_ENTRY = preload("res://assets/sfx/boardEntry.wav")
 const GLYPH_DESTROY = preload("res://assets/sfx/glyphDestroy.wav")
 const GLYPH_DESTROY_2 = preload("res://assets/sfx/glyphDestroy2.wav")
 
+const LEVEL_COMPLETE = preload("res://assets/sfx/levelComplete.wav")
+
 func _ready():
 	for i in range(16):
 		var player = AudioStreamPlayer.new()
@@ -53,3 +55,6 @@ func glyph_destroy():
 	play(GLYPH_DESTROY, 1.0, -8.0)
 	play(GLYPH_DESTROY_2, 1.0, -8.0)
 
+func complete():
+	await get_tree().create_timer(0.2).timeout
+	play(LEVEL_COMPLETE, 1.0, 5.0)
