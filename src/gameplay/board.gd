@@ -106,7 +106,7 @@ func load_level(id: String):
 func _input(event):
 	if Settings.level_index >= len(Settings.level_order):
 		return
-		
+
 	if Settings.level() == "playground" and event is InputEventKey and event.pressed and event.keycode == KEY_Q:
 		var x = 0
 		var y = 0
@@ -401,10 +401,10 @@ func advance_stage():
 			# end of levels!
 			playback_controls.process_mode = Node.PROCESS_MODE_PAUSABLE
 			escape_button.process_mode = Node.PROCESS_MODE_PAUSABLE
-			playback_controls.update_playback_mode(false)
 
 			get_node("/root/Transition").transition_to("res://src/gui/level_select.tscn")
 			await get_tree().create_timer(0.5).timeout
+			playback_controls.update_playback_mode(false)
 		else:
 			get_node("/root/Transition").transition_without_scene_change()
 			await get_node("/root/Transition").transition_complete
