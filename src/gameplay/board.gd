@@ -409,6 +409,7 @@ func advance_stage():
 			escape_button.process_mode = Node.PROCESS_MODE_PAUSABLE
 
 			get_node("/root/Transition").transition_to("res://src/gui/level_select.tscn")
+			playback_controls.update_playback_mode(false)
 			await get_tree().create_timer(0.5).timeout
 			playback_controls.update_playback_mode(false)
 		else:
