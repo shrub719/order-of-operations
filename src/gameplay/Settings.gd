@@ -6,13 +6,13 @@ var level_index = 0
 
 func _ready() -> void:
 	# load level order
-	var file = FileAccess.open("res://src/gameplay/levels/LEVEL-ORDER", FileAccess.READ)
+	var file = FileAccess.open("res://src/gameplay/levels/LEVEL-ORDER.txt", FileAccess.READ)
 	var text = file.get_as_text()
 	# FUCK OFF WINDOWS
 	text = text.remove_char(ord("\r"))
 	for line in text.split("\n"):
 		if line == "": continue
-		level_order.append(line)
+		level_order.append(line + ".txt")
 
 func level():
 	return level_order[level_index]
