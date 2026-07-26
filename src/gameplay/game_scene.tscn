@@ -157,14 +157,16 @@ libraries/ = SubResource("AnimationLibrary_xc72w")
 
 [node name="GUI" type="CanvasLayer" parent="." unique_id=2132230288]
 
-[node name="EscapeButton" type="Sprite2D" parent="GUI" unique_id=1158107786]
+[node name="EscapeButton" type="Sprite2D" parent="GUI" unique_id=1158107786 node_paths=PackedStringArray("playback_controls")]
 texture = ExtResource("13_g2hfw")
 centered = false
 hframes = 3
 script = ExtResource("7_miim0")
+playback_controls = NodePath("../PlaybackControls")
 
 [node name="PlayingText" type="Sprite2D" parent="GUI" unique_id=1830557900]
 self_modulate = Color(1, 1, 1, 0)
+z_index = 1
 position = Vector2(8, 160)
 texture = ExtResource("5_miim0")
 centered = false
@@ -244,6 +246,25 @@ grow_horizontal = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(-20, 12)
 theme_override_fonts/normal_font = ExtResource("11_tud4r")
+bbcode_enabled = true
+text = "[wave amp=10.0 freq=2.5 connected=1]6. Less Elementary[/wave]"
+scroll_active = false
+horizontal_alignment = 1
+
+[node name="Description" type="RichTextLabel" parent="GUI/Title" unique_id=1690882584]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -20.0
+offset_bottom = 44.0
+grow_horizontal = 2
+grow_vertical = 0
+offset_transform_position = Vector2(-20, 12)
+theme_override_colors/default_color = Color(0.57254905, 0.9098039, 0.7529412, 1)
+theme_override_fonts/normal_font = ExtResource("11_tud4r")
+theme_override_font_sizes/normal_font_size = 12
 bbcode_enabled = true
 text = "[wave amp=10.0 freq=2.5 connected=1]6. Less Elementary[/wave]"
 scroll_active = false

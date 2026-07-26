@@ -5,6 +5,7 @@ extends Sprite2D
 var is_held_down := false
 var been_pressed = false
 @export var to_level_select := true
+@export var playback_controls: PlaybackControls
 
 func is_mouse_over():
 	var mouse = get_local_mouse_position()
@@ -33,5 +34,6 @@ func _input(event: InputEvent) -> void:
 		SFX.click(frame)
 		if to_level_select:
 			get_node("/root/Transition").transition_to("res://src/gui/level_select.tscn")
+			playback_controls.update_playback_mode(false)
 		else:
 			get_node("/root/Transition").transition_to("res://src/gui/title_screen.tscn")

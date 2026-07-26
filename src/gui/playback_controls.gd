@@ -1,3 +1,4 @@
+class_name PlaybackControls
 extends Node2D
 
 @export var board: Board

@@ -47,6 +47,11 @@ func load_level(id: String):
 
 	var title = " ".join(content[0][0])
 	get_parent().set_title(title)
+	
+	var description = ""
+	if len(content[0]) >= 3:
+		description = " ".join(content[0][2])
+	get_parent().set_description(description)
 
 	board_width = int(content[0][1][0])
 	board_height = int(content[0][1][1])
@@ -107,7 +112,7 @@ func _input(event):
 	if Settings.level_index >= len(Settings.level_order):
 		return
 
-	if Settings.level() == "playground" and event is InputEventKey and event.pressed and event.keycode == KEY_Q:
+	if Settings.level() == "playground.txt" and event is InputEventKey and event.pressed and event.keycode == KEY_Q:
 		var x = 0
 		var y = 0
 		for type in range(1, 16):
@@ -120,7 +125,7 @@ func _input(event):
 				y = 0
 			print(x, y)
 
-	if Settings.level() == "playground" and event is InputEventKey and event.pressed and event.keycode == KEY_E:
+	if Settings.level() == "playground.txt" and event is InputEventKey and event.pressed and event.keycode == KEY_E:
 		var x = 0
 		var y = 0
 		for type in range(16, 19):
